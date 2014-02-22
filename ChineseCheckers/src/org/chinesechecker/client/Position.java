@@ -1,4 +1,4 @@
-package chinesechecker.client;
+package org.chinesechecker.client;
 
 public class Position {
 
@@ -6,23 +6,23 @@ public class Position {
     int col;
     
     final static private int[][] pos = {
-	       {5,5}, 	//1
-	       {5,6}, 	//2
-	       {5,7}, 	//3
-	       {5,8}, 	//4
-	       {1,13}, 	//5
-	       {2,13}, 	//6
-	       {3,13}, 	//7
-	       {4,13}, 	//8
-	       {5,13}, 	//9
-	       {5,14}, 	//10
-	       {5,15}, 	//11
-	       {5,16}, 	//12
-	       {5,17}, 	//13
-	       {10,13}, //14
-	       {11,13}, //15
-	       {12,13}, //16
-	       {13,13}, //17
+    	{5,5}, 	//1
+    	{5,6}, 	//2
+    	{5,7}, 	//3
+    	{5,8}, 	//4
+    	{1,13}, 	//5
+    	{2,13}, 	//6
+    	{3,13}, 	//7
+    	{4,13}, 	//8
+    	{5,13}, 	//9
+    	{5,14}, 	//10
+    	{5,15}, 	//11
+    	{5,16}, 	//12
+    	{5,17}, 	//13
+    	{10,13}, //14
+    	{11,13}, //15
+    	{12,13}, //16
+    	{13,13}, //17
     };
     
     public static boolean IsLegalPosition(int row, int col) {
@@ -42,7 +42,7 @@ public class Position {
 
     public Position(int row, int col) throws IllegalMove {
     	if (!IsLegalPosition(row, col)) {
-			throw new IllegalMove ("Position(" + row + "," + col + ") is not Leagal!");
+			throw new IllegalMove ("Position(" + row + "," + col + ") is not Legal!");
 		}
     	this.row = row;
     	this.col = col;
@@ -56,9 +56,9 @@ public class Position {
 		return col;
 	}
 	
-	public void Set(int row, int col) {
+	public void Set(int row, int col) throws IllegalMove {
 		if (!IsLegalPosition(row, col)) {
-			throw new RuntimeException("Position(" + row + "," + col + ") is not Leagal");
+			throw new IllegalMove("Position(" + row + "," + col + ") is not Leagal");
 		}
 		this.row = row;
 		this.col = col;

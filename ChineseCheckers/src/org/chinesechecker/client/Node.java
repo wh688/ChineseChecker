@@ -1,16 +1,16 @@
-package chinesechecker.client;
+package org.chinesechecker.client;
 
 public class Node {
 	public Object data = null;
-	private Map parent = null;
+	private CheckerMap parent = null;
 	private Nodes Sides = new Nodes();
 	private int step = 0;
 	
-	public Node(Map map) {
+	public Node(CheckerMap map) {
 		this.parent = map;
 	}
 	
-	public Node(Map map, Object data, int step) {
+	public Node(CheckerMap map, Object data, int step) {
 		this.parent = map;
 		this.data = data;
 		this.step = step; 
@@ -20,7 +20,7 @@ public class Node {
 		return step;
 	}
 	
-	public Map getParent() {
+	public CheckerMap getParent() {
 		return parent;
 	}
 	

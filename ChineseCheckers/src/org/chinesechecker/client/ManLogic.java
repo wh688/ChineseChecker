@@ -1,11 +1,11 @@
-package chinesechecker.client;
+package org.chinesechecker.client;
 
-public class Man extends Player {	
+public class ManLogic extends PlayerLogic {
 	
 	private Chess Selected = null;
 	private Position[] CanGo = null;
-
-	public Man(ChessBoard chessboard, String name, Color color, BoardArea area) {
+	
+	public ManLogic(ChessBoard chessboard, String name, Color color, BoardArea area) {
 		super(chessboard, name, color, area);
 	}
 	
@@ -20,7 +20,7 @@ public class Man extends Player {
 		
 		Selected = chess;
 		GoChess = chess;
-		Map map = chessboard.CanGo(chess); 
+		CheckerMap map = chessboard.CanGo(chess); 
 		CanGo = new Position[map.size() - 1];
 		for (int i = 0; i < map.size() - 1; i++) {
 			CanGo[i] = (Position) map.get(i + 1).data;
@@ -33,7 +33,7 @@ public class Man extends Player {
 		}
 		path = CreatePath(GoChess, position);
 		
-		Go(Selected, position);		
+		makeMove(Selected, position);		
 		Selected = null;
 		CanGo = null;
 		return true;

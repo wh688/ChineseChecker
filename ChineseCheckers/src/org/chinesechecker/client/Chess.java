@@ -1,4 +1,4 @@
-package chinesechecker.client;
+package org.chinesechecker.client;
 
 public class Chess {
 	private Color color = null;

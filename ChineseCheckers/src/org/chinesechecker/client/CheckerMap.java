@@ -1,8 +1,8 @@
-package chinesechecker.client;
+package org.chinesechecker.client;
 
-public class Map extends Nodes {
+public class CheckerMap extends Nodes {
 	
-	public Map() {
+	public CheckerMap() {
 
 	}
 	

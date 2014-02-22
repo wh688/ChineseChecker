@@ -1,4 +1,4 @@
-package chinesechecker.client;
+package org.chinesechecker.client;
 
 public class BoardArea {
 	  final static public BoardArea Area1 = new BoardArea(1);

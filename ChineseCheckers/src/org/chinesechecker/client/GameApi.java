@@ -1,4 +1,4 @@
-package chinesechecker.test;
+package org.chinesechecker.client;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-
-import chinesechecker.client.State;
 
 import com.google.common.collect.ImmutableMap;
 
@@ -32,7 +30,6 @@ public final class GameApi {
     protected final List<Map<String, Object>> playersInfo;
     protected final Map<String, Object> state;
     protected final Map<String, Object> lastState;
-    public final State checkerstate;
 
     /**
      * You should verify this lastMove is legal given lastState; some imperfect information
@@ -57,14 +54,12 @@ public final class GameApi {
 
     public VerifyMove(List<Map<String, Object>> playersInfo,
         Map<String, Object> state,
-        State checkerstate,
         Map<String, Object> lastState,
         List<Operation> lastMove,
         int lastMovePlayerId,
         Map<Integer, Integer> playerIdToNumberOfTokensInPot) {
       this.playersInfo = checkHasJsonSupportedType(playersInfo);
       this.state = checkHasJsonSupportedType(state);
-      this.checkerstate = checkerstate;
       this.lastState = checkHasJsonSupportedType(lastState);
       this.lastMove = lastMove;
       this.lastMovePlayerId = checkHasJsonSupportedType(lastMovePlayerId);
@@ -153,12 +148,11 @@ public final class GameApi {
 
     public UpdateUI(int yourPlayerId, List<Map<String, Object>> playersInfo,
         Map<String, Object> state,
-        State checkerstate,
         Map<String, Object> lastState,
         List<Operation> lastMove,
         int lastMovePlayerId,
         Map<Integer, Integer> playerIdToNumberOfTokensInPot) {
-      super(playersInfo, state, checkerstate, lastState, lastMove, lastMovePlayerId,
+      super(playersInfo, state, lastState, lastMove, lastMovePlayerId,
           playerIdToNumberOfTokensInPot);
       this.yourPlayerId = yourPlayerId;
     }
@@ -672,7 +666,6 @@ public final class GameApi {
               (Integer) message.get("yourPlayerId"),
               (List<Map<String, Object>>) message.get("playersInfo"),
               (Map<String, Object>) message.get("state"),
-              (State) message.get("checkerstate"),
               (Map<String, Object>) message.get("lastState"),
               messageToOperationList(message.get("lastMove")),
               (Integer) message.get("lastMovePlayerId"),
@@ -682,7 +675,6 @@ public final class GameApi {
           return new VerifyMove(
               (List<Map<String, Object>>) message.get("playersInfo"),
               (Map<String, Object>) message.get("state"),
-              (State) message.get("checkerstate"),
               (Map<String, Object>) message.get("lastState"),
               messageToOperationList(message.get("lastMove")),
               (Integer) message.get("lastMovePlayerId"),
@@ -772,7 +764,7 @@ public final class GameApi {
       return object;
     }
     if (object instanceof Integer || object instanceof Double
-        || object instanceof String || object instanceof Boolean || object instanceof State) {
+        || object instanceof String || object instanceof Boolean) {
       return object;
     }
     if (object instanceof List) {

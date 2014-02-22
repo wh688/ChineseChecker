@@ -1,6 +1,29 @@
-package chinesechecker.client;
+package org.chinesechecker.client;
 
-public abstract class Player {
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+
+import org.chinesechecker.client.ChessBoard;
+import org.chinesechecker.client.Color;
+import org.chinesechecker.client.GameApi.Operation;
+import org.chinesechecker.client.GameApi.Set;
+import org.chinesechecker.client.GameApi.SetTurn;
+import org.chinesechecker.client.GameApi.SetVisibility;
+import org.chinesechecker.client.GameApi.Shuffle;
+import org.chinesechecker.client.GameApi.VerifyMove;
+import org.chinesechecker.client.GameApi.VerifyMoveDone;
+import org.chinesechecker.client.GameApi.EndGame;
+
+import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
+
+public abstract class PlayerLogic {
 	private String name = "anonymity";
 	private Color color = null;	
 	private BoardArea area = null;
@@ -8,14 +31,14 @@ public abstract class Player {
 	protected Chess[] chesses = null;	
 	protected Position[] path = null;
 	protected Chess GoChess = null;
-	protected Player oppsitePlayer = null;
+	protected PlayerLogic oppsitePlayer = null;
 	
-	public Player(ChessBoard chessboard, String name, Color color, BoardArea area) {
+	
+	public PlayerLogic(ChessBoard chessboard, String name, Color color, BoardArea area) {
 		this.chessboard = chessboard;
 		this.name = name;
 		this.color = color;
-		this.area = area;
-		
+		this.area = area;		
 		chesses = CreateChesses();
 	}
 	
@@ -35,11 +58,11 @@ public abstract class Player {
 		return true;
 	}
 	
-	public void Go(Chess chess, Position position) throws IllegalMove{
+	public void makeMove(Chess chess, Position position) throws IllegalMove{
 		if (chess.GetColor() != this.GetColor()) {
 			throw new IllegalMove("Can not move the opponent's piece!");
 		}
-		chessboard.Go(chess, position);
+		chessboard.makeMove(chess, position);
 	}
 	
 	public Color GetColor() {
@@ -62,11 +85,11 @@ public abstract class Player {
 		return path;
 	}
 	
-	public Player getOppsite() {
+	public PlayerLogic getOppsite() {
 		return oppsitePlayer;
 	}
 	
-	public void setOppsite(Player player) {
+	public void setOppsite(PlayerLogic player) {
 		oppsitePlayer = player;
 	}
 	
@@ -90,7 +113,7 @@ public abstract class Player {
 	}
 	
 	protected Position[] CreatePath(Chess GoChess, Position destPosition) {
-		Map map = chessboard.CanGo(GoChess);
+		CheckerMap map = chessboard.CanGo(GoChess);
 		int source = map.indexOfByData(chessboard.getPosition(GoChess));
 		int dest = map.indexOfByData(destPosition);
 		if (dest == -1) {
@@ -113,5 +136,7 @@ public abstract class Player {
     	String str = name + " " + color + " " + area;
     	return str;
     }
+    
+   
 	
 }

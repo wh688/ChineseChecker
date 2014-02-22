@@ -1,4 +1,4 @@
-package chinesechecker.client;
+package org.chinesechecker.client;
 
 import java.util.Vector;
 

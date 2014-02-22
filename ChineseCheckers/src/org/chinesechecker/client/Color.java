@@ -1,6 +1,6 @@
-package chinesechecker.client;
+package org.chinesechecker.client;
 
-public class Color {
+/*public class Color {
 	final static public Color Brown = new Color("Brown");
 	final static public Color Yellow = new Color("Yellow");
 	final static public Color R = new Color("R"); //Red
@@ -8,7 +8,7 @@ public class Color {
 	final static public Color Purple = new Color("Purple");
 	final static public Color Green = new Color("Green");
   
-	private String ColorStr = null;
+	public String ColorStr = null;
   
 	private Color(String str) {
 		ColorStr = str;
@@ -33,6 +33,22 @@ public class Color {
 	@Override
 	public String toString() {
 		return ColorStr;  
+	}
+}*/
+
+public enum Color {
+	R, B;
+	
+	public boolean isRed() {
+		return this == R;
+	}
+
+	public boolean isBlue() {
+		return this == B;
+	}
+	
+	public Color getOppositeColor() {
+		return this == R ? B : R;
 	}
 }
 

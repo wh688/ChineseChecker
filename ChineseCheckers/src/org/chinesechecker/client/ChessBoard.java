@@ -1,11 +1,16 @@
-package chinesechecker.client;
+package org.chinesechecker.client;
+
+import java.util.List;
+import java.util.Arrays;
+import java.util.Vector;
+
+import com.google.common.base.Optional;
+import com.google.common.base.Objects;
+import com.google.common.collect.ImmutableList;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.io.Serializable;
-import java.util.Arrays;
-
-import com.google.common.base.Objects;
-
-import java.util.Vector;
 
 public class ChessBoard implements Serializable {	
 
@@ -28,6 +33,14 @@ public class ChessBoard implements Serializable {
 			Position position =	getPosition(chesses[i]); 
 			chessesIndex[position.getrow() - 1][position.getcol() - 1] = chesses[i];
 		}		
+	}	
+	
+	public ChessBoard(Chess[][] chessesIndex) {
+		for (int i = 0; i < 17; i++) {
+			for (int j = 0; j < 17; j++) {
+				this.chessesIndex[i][j] = chessesIndex[i][j];				
+			}			
+		}
 	}
 	
 	public Chess[][] getChessesIndex() {
@@ -68,14 +81,15 @@ public class ChessBoard implements Serializable {
 		return chessesPosition[index];
 	}
 	
-	public void Go(Chess chess, Position chessPosition) {		
+	public Chess[][] makeMove(Chess chess, Position chessPosition) {		
 		if (chessPosition == null) {
-			return;
+			return chessesIndex;
 		}
 		Position OldPosition = getPosition(chess);
 		chessesIndex[OldPosition.getrow() - 1][OldPosition.getcol() - 1] = null;
 		chessesIndex[chessPosition.getrow() - 1][chessPosition.getcol() - 1] = chess;		
-		chessesPosition[chess.getindex()] = new Position(chessPosition);		
+		chessesPosition[chess.getindex()] = new Position(chessPosition);
+		return chessesIndex;
 	}
 	
     private Position CanJumpTo(Chess chess, Position chessPosition, Direction direction) {
@@ -143,8 +157,8 @@ public class ChessBoard implements Serializable {
 		return re;				
 	}
     
-	public Map CanGo(Chess chess) {
-		Map map = new Map();
+	public CheckerMap CanGo(Chess chess) {
+		CheckerMap map = new CheckerMap();
 		Position chessPosition = getPosition(chess);
 		// initial position
 		map.create(chessPosition, 1);		
