@@ -108,47 +108,7 @@ public class PresenterTest {
 		Mockito.verify(view).setWhoseTurn(nextTurn);   	
 	}
 	
-	/**
-	@Test
-    public void testRedSingleMove() {
-		
-        PlayerInfo player1 = new PlayerInfo ("player1", Color.R, BoardArea.Area2);
-    	PlayerInfo player2 = new PlayerInfo ("player2", Color.B, BoardArea.Area5);
-    	PlayerInfo [] playerInfo = {player1, player2};
-    	State state = new State(playerInfo);	
-    	state.chessBoard.makeMove(state.getChessBoard().getChess(0), new Position(5,9));
-    	state.chessBoard.makeMove(state.getChessBoard().getChess(1), new Position(7,7));
-    	state.chessBoard.makeMove(state.getChessBoard().getChess(2), new Position(7,9));
-    	state.chessBoard.makeMove(state.getChessBoard().getChess(3), new Position(8,8));
-    	state.chessBoard.makeMove(state.getChessBoard().getChess(4), new Position(10,8));
-    	state.chessBoard.makeMove(state.getChessBoard().getChess(5), new Position(10,11));
-    	state.chessBoard.makeMove(state.getChessBoard().getChess(6), new Position(11,12));
-    	state.chessBoard.makeMove(state.getChessBoard().getChess(7), new Position(13,11));
-    	state.chessBoard.makeMove(state.getChessBoard().getChess(8), new Position(13,13));
-    	state.chessBoard.makeMove(state.getChessBoard().getChess(9), new Position(13,10));
-    	state.chessBoard.makeMove(state.getChessBoard().getChess(10), new Position(13,12));
-    	state.chessBoard.makeMove(state.getChessBoard().getChess(11), new Position(12,10));
-    	state.chessBoard.makeMove(state.getChessBoard().getChess(12), new Position(10,10));
-    	state.chessBoard.makeMove(state.getChessBoard().getChess(13), new Position(9,11));
-    	state.chessBoard.makeMove(state.getChessBoard().getChess(14), new Position(9,8));
-    	state.chessBoard.makeMove(state.getChessBoard().getChess(15), new Position(8,7));
-    	state.chessBoard.makeMove(state.getChessBoard().getChess(16), new Position(4,8));
-    	state.chessBoard.makeMove(state.getChessBoard().getChess(17), new Position(4,6));
-    	state.chessBoard.makeMove(state.getChessBoard().getChess(18), new Position(2,5));
-    	state.chessBoard.makeMove(state.getChessBoard().getChess(19), new Position(1,5));
-    	state.currentPlayIndex = 0;
-    	presenter.setState(state);
-    	
-    	int whoseTurn = presenter.currentState.currentPlayIndex;
-    	presenter.updateUI(new Position(13,10), new Position(14,10));
-    	
-    	int nextTurn = presenter.currentState.currentPlayIndex;
-    	Mockito.verify(view).setBoard(presenter.currentState.chessBoard);
-		Mockito.verify(view).setMessage("");
-		Mockito.verify(view).setWhoseTurn(nextTurn);   	
-	}
-	*/
-
+	
 	@Test
     public void testSetState() {
 		PlayerInfo player1 = new PlayerInfo ("player1", Color.R, BoardArea.Area2);
