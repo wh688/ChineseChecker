@@ -24,6 +24,11 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 public abstract class PlayerLogic {
+	
+	private static final String TURN = "0"; 
+	private static final String CHESSBOARD = "chessBoard";
+	private static final String MAKEMOVE = "makeMove";
+	
 	private String name = "anonymity";
 	private Color color = null;	
 	private BoardArea area = null;
@@ -137,6 +142,83 @@ public abstract class PlayerLogic {
     	return str;
     }
     
-   
-	
+    public VerifyMoveDone verify(VerifyMove verifyMove) {
+		try {
+			checkMoveIsLegal(verifyMove);
+			return new VerifyMoveDone();
+		} catch (Exception e) {
+			return new VerifyMoveDone(verifyMove.getLastMovePlayerId(), e.getMessage());
+		}		
+	}
+    
+    void checkMoveIsLegal(VerifyMove verifyMove) {
+    	List<Operation> lastMove = verifyMove.getLastMove();
+    	Map<String, Object> lastState = verifyMove.getLastState();
+    	List<Operation> expectedOperations = getExpectedOperations(
+            lastState, lastMove, verifyMove.getPlayerIds(), verifyMove.getLastMovePlayerId());
+        check(expectedOperations.equals(lastMove), expectedOperations, lastMove);
+        if (lastState.isEmpty()) {
+        	check(verifyMove.getLastMovePlayerId() == verifyMove.getPlayerIds().get(0));
+        }
+    }
+    
+    List<Operation> getExpectedOperations(Map<String, Object> lastApiState, List<Operation> lastMove,
+    		List<Integer> playerIds, int lastMovePlayerId) {
+    	if (lastApiState.isEmpty()) {
+    		return getMoveInitial(playerIds);
+    	}    	    
+    	State lastState = gameApiStateToCheckerState(lastApiState);
+    	List<Operation> expectedOperations = Lists.newArrayList();
+    	if (lastMove.get(1) instanceof Set) {
+    		Set move = (Set) lastMove.get(1);
+    		if (move.getKey() == MAKEMOVE) {
+    			//Moving a chess
+    			expectedOperations = getMakeMoveOperation(lastState);
+    		} 
+    	}
+    	return expectedOperations;
+    }
+    
+    List<Operation> getMakeMoveOperation(State state) {
+        String chessboard = state.chessBoard.toString();
+        int turn = state.currentPlayIndex; 
+        List<Operation> expectedOperations;
+        expectedOperations = Lists.newArrayList();
+        expectedOperations.add(new Set(TURN, turn));
+        expectedOperations.add(new Set(CHESSBOARD, chessboard));
+        return expectedOperations; 
+    }
+    
+    List<Operation> getMoveInitial(List<Integer> playerIds) {
+        int redPlayerId = playerIds.get(0);
+        List<Operation> operations = Lists.newArrayList();
+        //The order of operations: turn, chessboard
+        operations.add(new SetTurn(redPlayerId));
+        //Set the chessboard
+        PlayerInfo player1 = new PlayerInfo ("player1", Color.R, BoardArea.Area2);
+		PlayerInfo player2 = new PlayerInfo ("player2", Color.B, BoardArea.Area5);
+		PlayerInfo [] playerInfo = {player1, player2};
+		State initialState = new State(playerInfo);
+        operations.add(new Set(CHESSBOARD, initialState.chessBoard));
+        return operations;
+    }
+    
+    State gameApiStateToCheckerState(Map<String, Object> gameApiState) {
+    	PlayerInfo player1 = new PlayerInfo ("player1", Color.R, BoardArea.Area2);
+		PlayerInfo player2 = new PlayerInfo ("player2", Color.B, BoardArea.Area5);
+		PlayerInfo [] playerInfo = {player1, player2};
+		State state = new State(playerInfo);
+    	List<Optional<ChessBoard>> chessboard = Lists.newArrayList();
+    	state.chessBoard = (ChessBoard) gameApiState.get(CHESSBOARD);
+    	state.currentPlayIndex = (int) gameApiState.get(TURN);
+    	return state;
+    }
+    	
+    
+    private void check(boolean val, Object... debugArguments) {
+    	if (!val) {
+    		throw new RuntimeException("We have a hacker! debugArguments="
+    				+ Arrays.toString(debugArguments));
+    	}
+    }	
 }
