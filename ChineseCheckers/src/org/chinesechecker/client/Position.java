@@ -2,8 +2,8 @@ package org.chinesechecker.client;
 
 public class Position {
 
-    int row;
-    int col;
+    public int row;
+    public int col;
     
     final static private int[][] pos = {
     	{5,5}, 	//1

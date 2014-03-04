@@ -14,8 +14,11 @@ import java.io.Serializable;
 
 public class ChessBoard implements Serializable {	
 
+	public static final int ROWS = 18;
+	public static final int COLS = 18;
 	private Chess[][] chessesIndex = new Chess[17][17];
 	private Chess[] chesses = null;
+	public Chess emptyChess = new Chess(Color.E, 1);
 	private Position[] chessesPosition = null;
 	private static final int CHESSCOUNT = 10;
 	
@@ -74,7 +77,7 @@ public class ChessBoard implements Serializable {
 	}
 	
 	public Position getPosition(Chess chess) {		
-		return chessesPosition[chess.getindex()];
+		return chessesPosition[chess.getIndex()];
 	}
 	
 	public Position getPosition(int index) {		
@@ -88,7 +91,7 @@ public class ChessBoard implements Serializable {
 		Position OldPosition = getPosition(chess);
 		chessesIndex[OldPosition.getrow() - 1][OldPosition.getcol() - 1] = null;
 		chessesIndex[chessPosition.getrow() - 1][chessPosition.getcol() - 1] = chess;		
-		chessesPosition[chess.getindex()] = new Position(chessPosition);
+		chessesPosition[chess.getIndex()] = new Position(chessPosition);
 		return chessesIndex;
 	}
 	

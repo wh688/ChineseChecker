@@ -37,7 +37,11 @@ package org.chinesechecker.client;
 }*/
 
 public enum Color {
-	R, B;
+	R, B, E;
+	
+	public boolean isEmpty() {
+		return this == E;
+	}
 	
 	public boolean isRed() {
 		return this == R;

@@ -9,11 +9,11 @@ import org.junit.Before;
 import org.mockito.Mockito;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-
 import org.chinesechecker.client.GameApi.Container;
 import org.chinesechecker.client.GameApi.Operation;
 import org.chinesechecker.client.GameApi.SetTurn;
 import org.chinesechecker.client.GameApi.UpdateUI;
+import org.chinesechecker.graphics.Presenter;
 
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -37,36 +37,39 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 public class PresenterTest {
 
 	Presenter.View view;
-	Container container;
 	Presenter presenter;
 	
 	@Before
     public void runBefore() {
 		view = Mockito.mock(Presenter.View.class);
-		presenter = new Presenter(view, container);
+		presenter = new Presenter(view);
     }
 	
 	@Test
     public void testValidRedFirstMove() {
-		int whoseTurn = presenter.currentState.currentPlayIndex;		
-		presenter.updateUI(new Position(4,5), new Position(5,5));
-		int nextTurn = presenter.currentState.currentPlayIndex;
-		Mockito.verify(view).setBoard(presenter.currentState.chessBoard);
+		int whoseTurn = presenter.currentState.currentPlayIndex;
+		presenter.selectCell(4, 5);
+		presenter.selectCell(5, 5);
+		Color nextTurn = presenter.currentState.getCurentPlay().getColor();
+		Mockito.verify(view).setCell(4, 5, presenter.currentState.chessBoard.emptyChess);
+		Mockito.verify(view).setCell(5, 5, presenter.currentState.chessBoard.getChess(6));		
 		Mockito.verify(view).setMessage("");
 		Mockito.verify(view).setWhoseTurn(nextTurn);
-    }
+    }	
 	
 	@Test
     public void testInvalidRedFirstMoveGoWhereCannotGo() {
 		int whoseTurn = presenter.currentState.currentPlayIndex;		
-		presenter.updateUI(new Position(4,5), new Position(6,4));
+		presenter.selectCell(4, 5);
+		presenter.selectCell(6, 4);
 		Mockito.verify(view).setMessage("Can not go there!");
-    }
+    }	
 	
 	@Test
     public void testInvalidRedFirstMovePickWrongChess() {
-		int whoseTurn = presenter.currentState.currentPlayIndex;		
-		presenter.updateUI(new Position(14,10), new Position(13,10));
+		int whoseTurn = presenter.currentState.currentPlayIndex;	
+		presenter.selectCell(14,10);
+		presenter.selectCell(13,10);
 		Mockito.verify(view).setMessage("Can not move the opponent's piece!");
     }
 	
@@ -75,19 +78,22 @@ public class PresenterTest {
 		int whoseTurn = presenter.currentState.currentPlayIndex;
 		presenter.currentState.chessBoard.makeMove(presenter.currentState.chessBoard.getChess(6), new Position(5,5));
 		presenter.currentState.getNextPlay();
-		presenter.updateUI(new Position(14,10), new Position(13,10));
-		int nextTurn = presenter.currentState.currentPlayIndex;
-		Mockito.verify(view).setBoard(presenter.currentState.chessBoard);
+		presenter.selectCell(14,10);
+		presenter.selectCell(13,10);
+		Color nextTurn = presenter.currentState.getCurentPlay().getColor();
+		Mockito.verify(view).setCell(14, 10, presenter.currentState.chessBoard.emptyChess);
+		Mockito.verify(view).setCell(13, 10, presenter.currentState.chessBoard.getChess(19));
 		Mockito.verify(view).setMessage("");
 		Mockito.verify(view).setWhoseTurn(nextTurn);
     }
-	
+    	
 	@Test
     public void testInvalidBlueFirstMoveGoWhereCannotGo() {
 		int whoseTurn = presenter.currentState.currentPlayIndex;
 		presenter.currentState.chessBoard.makeMove(presenter.currentState.chessBoard.getChess(6), new Position(5,5));
 		presenter.currentState.getNextPlay();
-		presenter.updateUI(new Position(14,10), new Position(12,10));
+		presenter.selectCell(14,10);
+		presenter.selectCell(12,10);
 		Mockito.verify(view).setMessage("Can not go there!");
     }
 	
@@ -96,6 +102,8 @@ public class PresenterTest {
 		int whoseTurn = presenter.currentState.currentPlayIndex;
 		presenter.currentState.chessBoard.makeMove(presenter.currentState.chessBoard.getChess(6), new Position(5,5));
 		presenter.currentState.getNextPlay();
+		presenter.selectCell(5,5);
+		presenter.selectCell(5,6);
 		presenter.updateUI(new Position(5,5), new Position(5,6));
 		Mockito.verify(view).setMessage("Can not move the opponent's piece!");
     }
@@ -124,9 +132,11 @@ public class PresenterTest {
     	presenter.currentState.chessBoard.makeMove(presenter.currentState.chessBoard.getChess(19), new Position(1,5));
     	presenter.currentState.currentPlayIndex = 0;    	
     	int whoseTurn = presenter.currentState.currentPlayIndex;
-    	presenter.updateUI(new Position(13,10), new Position(14,10));    	
-    	int nextTurn = presenter.currentState.currentPlayIndex;
-    	Mockito.verify(view).setBoard(presenter.currentState.chessBoard);
+    	presenter.selectCell(13,10);
+		presenter.selectCell(14,10); 	
+    	Color nextTurn = presenter.currentState.getCurentPlay().getColor();
+    	Mockito.verify(view).setCell(13, 10, presenter.currentState.chessBoard.emptyChess);
+		Mockito.verify(view).setCell(14, 10, presenter.currentState.chessBoard.getChess(9));
 		Mockito.verify(view).setMessage("");
 		Mockito.verify(view).setWhoseTurn(nextTurn);   	
 	}
@@ -155,9 +165,11 @@ public class PresenterTest {
     	presenter.currentState.chessBoard.makeMove(presenter.currentState.chessBoard.getChess(19), new Position(1,5));
     	presenter.currentState.currentPlayIndex = 1;    	
     	int whoseTurn = presenter.currentState.currentPlayIndex;
-    	presenter.updateUI(new Position(4,6), new Position(3,5));    	
-    	int nextTurn = presenter.currentState.currentPlayIndex;
-    	Mockito.verify(view).setBoard(presenter.currentState.chessBoard);
+    	presenter.selectCell(4,6);
+		presenter.selectCell(3,5); 	
+    	Color nextTurn = presenter.currentState.getCurentPlay().getColor();
+    	Mockito.verify(view).setCell(4, 6, presenter.currentState.chessBoard.emptyChess);
+		Mockito.verify(view).setCell(3, 5, presenter.currentState.chessBoard.getChess(17));
 		Mockito.verify(view).setMessage("");
 		Mockito.verify(view).setWhoseTurn(nextTurn);   	
 	}	
@@ -186,11 +198,13 @@ public class PresenterTest {
     	presenter.currentState.chessBoard.makeMove(presenter.currentState.chessBoard.getChess(19), new Position(1,5));
     	presenter.currentState.currentPlayIndex = 0;    	
     	int whoseTurn = presenter.currentState.currentPlayIndex;
-    	presenter.updateUI(new Position(7,7), new Position(9,9));    	
-    	int nextTurn = presenter.currentState.currentPlayIndex;
-    	Mockito.verify(view).setBoard(presenter.currentState.chessBoard);
+    	presenter.selectCell(7,7);
+		presenter.selectCell(9,9); 	
+    	Color nextTurn = presenter.currentState.getCurentPlay().getColor();
+    	Mockito.verify(view).setCell(7, 7, presenter.currentState.chessBoard.emptyChess);
+		Mockito.verify(view).setCell(9, 9, presenter.currentState.chessBoard.getChess(1));
 		Mockito.verify(view).setMessage("");
-		Mockito.verify(view).setWhoseTurn(nextTurn); 
+		Mockito.verify(view).setWhoseTurn(nextTurn);   	 
 	}
 	
 	@Test
@@ -217,11 +231,13 @@ public class PresenterTest {
     	presenter.currentState.chessBoard.makeMove(presenter.currentState.chessBoard.getChess(19), new Position(1,5));
     	presenter.currentState.currentPlayIndex = 0;    	
     	int whoseTurn = presenter.currentState.currentPlayIndex;
-    	presenter.updateUI(new Position(7,7), new Position(9,7));    	
-    	int nextTurn = presenter.currentState.currentPlayIndex;
-    	Mockito.verify(view).setBoard(presenter.currentState.chessBoard);
+    	presenter.selectCell(7,7);
+		presenter.selectCell(9,7); 	
+    	Color nextTurn = presenter.currentState.getCurentPlay().getColor();
+    	Mockito.verify(view).setCell(7, 7, presenter.currentState.chessBoard.emptyChess);
+		Mockito.verify(view).setCell(9, 7, presenter.currentState.chessBoard.getChess(1));
 		Mockito.verify(view).setMessage("");
-		Mockito.verify(view).setWhoseTurn(nextTurn); 
+		Mockito.verify(view).setWhoseTurn(nextTurn);   	
 	}
 	
 	@Test
@@ -248,11 +264,13 @@ public class PresenterTest {
     	presenter.currentState.chessBoard.makeMove(presenter.currentState.chessBoard.getChess(19), new Position(1,5));
     	presenter.currentState.currentPlayIndex = 1;    	
     	int whoseTurn = presenter.currentState.currentPlayIndex;
-    	presenter.updateUI(new Position(9,8), new Position(7,6));    	
-    	int nextTurn = presenter.currentState.currentPlayIndex;
-    	Mockito.verify(view).setBoard(presenter.currentState.chessBoard);
+    	presenter.selectCell(9,8);
+		presenter.selectCell(7,6); 	
+    	Color nextTurn = presenter.currentState.getCurentPlay().getColor();
+    	Mockito.verify(view).setCell(9, 8, presenter.currentState.chessBoard.emptyChess);
+		Mockito.verify(view).setCell(7, 6, presenter.currentState.chessBoard.getChess(14));
 		Mockito.verify(view).setMessage("");
-		Mockito.verify(view).setWhoseTurn(nextTurn); 
+		Mockito.verify(view).setWhoseTurn(nextTurn);   	 
 	}	
 	
 	@Test
@@ -279,11 +297,13 @@ public class PresenterTest {
     	presenter.currentState.chessBoard.makeMove(presenter.currentState.chessBoard.getChess(19), new Position(1,5));
     	presenter.currentState.currentPlayIndex = 1;    	
     	int whoseTurn = presenter.currentState.currentPlayIndex;
-    	presenter.updateUI(new Position(9,8), new Position(7,8));    	
-    	int nextTurn = presenter.currentState.currentPlayIndex;
-    	Mockito.verify(view).setBoard(presenter.currentState.chessBoard);
+    	presenter.selectCell(9,8);
+		presenter.selectCell(7,8); 	
+    	Color nextTurn = presenter.currentState.getCurentPlay().getColor();
+    	Mockito.verify(view).setCell(9, 8, presenter.currentState.chessBoard.emptyChess);
+		Mockito.verify(view).setCell(7, 8, presenter.currentState.chessBoard.getChess(14));
 		Mockito.verify(view).setMessage("");
-		Mockito.verify(view).setWhoseTurn(nextTurn); 
+		Mockito.verify(view).setWhoseTurn(nextTurn);   	
 	}	
 	
 	@Test
@@ -310,11 +330,13 @@ public class PresenterTest {
     	presenter.currentState.chessBoard.makeMove(presenter.currentState.chessBoard.getChess(19), new Position(1,5));
     	presenter.currentState.currentPlayIndex = 0;    	
     	int whoseTurn = presenter.currentState.currentPlayIndex;
-    	presenter.updateUI(new Position(5,9), new Position(9,9));    	
-    	int nextTurn = presenter.currentState.currentPlayIndex;
-    	Mockito.verify(view).setBoard(presenter.currentState.chessBoard);
+    	presenter.selectCell(5,9);
+		presenter.selectCell(9,9); 	
+    	Color nextTurn = presenter.currentState.getCurentPlay().getColor();
+    	Mockito.verify(view).setCell(5, 9, presenter.currentState.chessBoard.emptyChess);
+		Mockito.verify(view).setCell(9, 9, presenter.currentState.chessBoard.getChess(0));
 		Mockito.verify(view).setMessage("");
-		Mockito.verify(view).setWhoseTurn(nextTurn); 
+		Mockito.verify(view).setWhoseTurn(nextTurn);   	
 	}
 	
 	@Test
@@ -341,11 +363,13 @@ public class PresenterTest {
     	presenter.currentState.chessBoard.makeMove(presenter.currentState.chessBoard.getChess(19), new Position(1,5));
     	presenter.currentState.currentPlayIndex = 0;    	
     	int whoseTurn = presenter.currentState.currentPlayIndex;
-    	presenter.updateUI(new Position(7,9), new Position(11,13));    	
-    	int nextTurn = presenter.currentState.currentPlayIndex;
-    	Mockito.verify(view).setBoard(presenter.currentState.chessBoard);
+    	presenter.selectCell(7,9);
+		presenter.selectCell(11,13); 	
+    	Color nextTurn = presenter.currentState.getCurentPlay().getColor();
+    	Mockito.verify(view).setCell(7, 9, presenter.currentState.chessBoard.emptyChess);
+		Mockito.verify(view).setCell(11, 13, presenter.currentState.chessBoard.getChess(2));
 		Mockito.verify(view).setMessage("");
-		Mockito.verify(view).setWhoseTurn(nextTurn); 
+		Mockito.verify(view).setWhoseTurn(nextTurn);   	
 	}
 	
 	@Test
@@ -372,11 +396,13 @@ public class PresenterTest {
     	presenter.currentState.chessBoard.makeMove(presenter.currentState.chessBoard.getChess(19), new Position(1,5));
     	presenter.currentState.currentPlayIndex = 1;    	
     	int whoseTurn = presenter.currentState.currentPlayIndex;
-    	presenter.updateUI(new Position(12,10), new Position(8,10));    	
-    	int nextTurn = presenter.currentState.currentPlayIndex;
-    	Mockito.verify(view).setBoard(presenter.currentState.chessBoard);
+    	presenter.selectCell(12,10);
+		presenter.selectCell(8,10); 	
+    	Color nextTurn = presenter.currentState.getCurentPlay().getColor();
+    	Mockito.verify(view).setCell(12, 10, presenter.currentState.chessBoard.emptyChess);
+		Mockito.verify(view).setCell(8, 10, presenter.currentState.chessBoard.getChess(11));
 		Mockito.verify(view).setMessage("");
-		Mockito.verify(view).setWhoseTurn(nextTurn); 
+		Mockito.verify(view).setWhoseTurn(nextTurn);   	
 	}	
 	
 	@Test
@@ -403,11 +429,13 @@ public class PresenterTest {
     	presenter.currentState.chessBoard.makeMove(presenter.currentState.chessBoard.getChess(19), new Position(1,5));
     	presenter.currentState.currentPlayIndex = 1;    	
     	int whoseTurn = presenter.currentState.currentPlayIndex;
-    	presenter.updateUI(new Position(12,10), new Position(8,6));    	
-    	int nextTurn = presenter.currentState.currentPlayIndex;
-    	Mockito.verify(view).setBoard(presenter.currentState.chessBoard);
+    	presenter.selectCell(12,10);
+		presenter.selectCell(8,6); 	
+    	Color nextTurn = presenter.currentState.getCurentPlay().getColor();
+    	Mockito.verify(view).setCell(12, 10, presenter.currentState.chessBoard.emptyChess);
+		Mockito.verify(view).setCell(8, 6, presenter.currentState.chessBoard.getChess(11));
 		Mockito.verify(view).setMessage("");
-		Mockito.verify(view).setWhoseTurn(nextTurn); 
+		Mockito.verify(view).setWhoseTurn(nextTurn);   	 
 	}
 	
 	@Test
@@ -434,11 +462,13 @@ public class PresenterTest {
     	presenter.currentState.chessBoard.makeMove(presenter.currentState.chessBoard.getChess(19), new Position(2,5));
     	presenter.currentState.currentPlayIndex = 0;	
     	int whoseTurn = presenter.currentState.currentPlayIndex;
-    	presenter.updateUI(new Position(7,7), new Position(11,11));    	
-    	int nextTurn = presenter.currentState.currentPlayIndex;
-    	Mockito.verify(view).setBoard(presenter.currentState.chessBoard);
+    	presenter.selectCell(7,7);
+		presenter.selectCell(11,11); 	
+    	Color nextTurn = presenter.currentState.getCurentPlay().getColor();
+    	Mockito.verify(view).setCell(7, 7, presenter.currentState.chessBoard.emptyChess);
+		Mockito.verify(view).setCell(11, 11, presenter.currentState.chessBoard.getChess(2));
 		Mockito.verify(view).setMessage("");
-		Mockito.verify(view).setWhoseTurn(nextTurn); 
+		Mockito.verify(view).setWhoseTurn(nextTurn);  
 	}
 	
 	@Test
@@ -465,11 +495,13 @@ public class PresenterTest {
     	presenter.currentState.chessBoard.makeMove(presenter.currentState.chessBoard.getChess(19), new Position(2,5));
     	presenter.currentState.currentPlayIndex = 1;	
     	int whoseTurn = presenter.currentState.currentPlayIndex;
-    	presenter.updateUI(new Position(13,11), new Position(7,5));    	
-    	int nextTurn = presenter.currentState.currentPlayIndex;
-    	Mockito.verify(view).setBoard(presenter.currentState.chessBoard);
+    	presenter.selectCell(13,11);
+		presenter.selectCell(7,5); 	
+    	Color nextTurn = presenter.currentState.getCurentPlay().getColor();
+    	Mockito.verify(view).setCell(13, 11, presenter.currentState.chessBoard.emptyChess);
+		Mockito.verify(view).setCell(7, 5, presenter.currentState.chessBoard.getChess(10));
 		Mockito.verify(view).setMessage("");
-		Mockito.verify(view).setWhoseTurn(nextTurn); 
+		Mockito.verify(view).setWhoseTurn(nextTurn);  
 	}
 	
 	@Test
@@ -496,9 +528,11 @@ public class PresenterTest {
     	presenter.currentState.chessBoard.makeMove(presenter.currentState.chessBoard.getChess(19), new Position(2,5));
     	presenter.currentState.currentPlayIndex = 0;	
     	int whoseTurn = presenter.currentState.currentPlayIndex;
-    	presenter.updateUI(new Position(7,7), new Position(15,11));    	
-    	int nextTurn = presenter.currentState.currentPlayIndex;
-    	Mockito.verify(view).setBoard(presenter.currentState.chessBoard);
+    	presenter.selectCell(7,7);
+		presenter.selectCell(15,11); 	
+    	Color nextTurn = presenter.currentState.getCurentPlay().getColor();
+    	Mockito.verify(view).setCell(7, 7, presenter.currentState.chessBoard.emptyChess);
+		Mockito.verify(view).setCell(15, 11, presenter.currentState.chessBoard.getChess(2));
 		Mockito.verify(view).setMessage("");
 		Mockito.verify(view).setWhoseTurn(nextTurn); 
 	}
@@ -527,9 +561,11 @@ public class PresenterTest {
     	presenter.currentState.chessBoard.makeMove(presenter.currentState.chessBoard.getChess(19), new Position(2,5));
     	presenter.currentState.currentPlayIndex = 1;	
     	int whoseTurn = presenter.currentState.currentPlayIndex;
-    	presenter.updateUI(new Position(13,11), new Position(5,5));    	
-    	int nextTurn = presenter.currentState.currentPlayIndex;
-    	Mockito.verify(view).setBoard(presenter.currentState.chessBoard);
+    	presenter.selectCell(13,11);
+		presenter.selectCell(5,5); 	
+    	Color nextTurn = presenter.currentState.getCurentPlay().getColor();
+    	Mockito.verify(view).setCell(13, 11, presenter.currentState.chessBoard.emptyChess);
+		Mockito.verify(view).setCell(5, 5, presenter.currentState.chessBoard.getChess(10));
 		Mockito.verify(view).setMessage("");
 		Mockito.verify(view).setWhoseTurn(nextTurn); 
 	}
@@ -558,11 +594,13 @@ public class PresenterTest {
     	presenter.currentState.chessBoard.makeMove(presenter.currentState.chessBoard.getChess(9), new Position(17,13));
     	presenter.currentState.currentPlayIndex = 0;
     	int whoseTurn = presenter.currentState.currentPlayIndex;
-    	presenter.updateUI(new Position(13,10), new Position(14,10));
-    	int nextTurn = presenter.currentState.currentPlayIndex;
-    	Mockito.verify(view).setBoard(presenter.currentState.chessBoard);
+    	presenter.selectCell(13,10);
+		presenter.selectCell(14,10); 	
+    	Color nextTurn = presenter.currentState.getCurentPlay().getColor();
+    	Mockito.verify(view).setCell(13, 10, presenter.currentState.chessBoard.emptyChess);
+		Mockito.verify(view).setCell(14, 10, presenter.currentState.chessBoard.getChess(0));
 		Mockito.verify(view).setMessage("");
-		Mockito.verify(view).setWhoseTurn(nextTurn);
+		Mockito.verify(view).setWhoseTurn(nextTurn); 
 		Mockito.verify(view).showStatus("R wins!");
 	}
 	
@@ -590,43 +628,13 @@ public class PresenterTest {
     	presenter.currentState.chessBoard.makeMove(presenter.currentState.chessBoard.getChess(19), new Position(1,5));
     	presenter.currentState.currentPlayIndex = 1;
     	int whoseTurn = presenter.currentState.currentPlayIndex;
-    	presenter.updateUI(new Position(5,8), new Position(4,8));
-    	int nextTurn = presenter.currentState.currentPlayIndex;
-    	Mockito.verify(view).setBoard(presenter.currentState.chessBoard);
+    	presenter.selectCell(5,8);
+		presenter.selectCell(4,8); 	
+    	Color nextTurn = presenter.currentState.getCurentPlay().getColor();
+    	Mockito.verify(view).setCell(5,8, presenter.currentState.chessBoard.emptyChess);
+		Mockito.verify(view).setCell(4,8, presenter.currentState.chessBoard.getChess(10));
 		Mockito.verify(view).setMessage("");
-		Mockito.verify(view).setWhoseTurn(nextTurn);
+		Mockito.verify(view).setWhoseTurn(nextTurn); 
 		Mockito.verify(view).showStatus("B wins!");
-	}
-	
-	@Test
-    public void testSetState() {
-		PlayerInfo player1 = new PlayerInfo ("player1", Color.R, BoardArea.Area2);
-    	PlayerInfo player2 = new PlayerInfo ("player2", Color.B, BoardArea.Area5);
-    	PlayerInfo [] playerInfo = {player1, player2};
-    	State state = new State(playerInfo);	
-    	state.chessBoard.makeMove(state.getChessBoard().getChess(0), new Position(5,9));
-    	state.chessBoard.makeMove(state.getChessBoard().getChess(1), new Position(7,7));
-    	state.chessBoard.makeMove(state.getChessBoard().getChess(2), new Position(7,9));
-    	state.chessBoard.makeMove(state.getChessBoard().getChess(3), new Position(8,8));
-    	state.chessBoard.makeMove(state.getChessBoard().getChess(4), new Position(10,8));
-    	state.chessBoard.makeMove(state.getChessBoard().getChess(5), new Position(10,11));
-    	state.chessBoard.makeMove(state.getChessBoard().getChess(6), new Position(11,12));
-    	state.chessBoard.makeMove(state.getChessBoard().getChess(7), new Position(13,11));
-    	state.chessBoard.makeMove(state.getChessBoard().getChess(8), new Position(13,13));
-    	state.chessBoard.makeMove(state.getChessBoard().getChess(9), new Position(13,10));
-    	state.chessBoard.makeMove(state.getChessBoard().getChess(10), new Position(13,12));
-    	state.chessBoard.makeMove(state.getChessBoard().getChess(11), new Position(12,10));
-    	state.chessBoard.makeMove(state.getChessBoard().getChess(12), new Position(10,10));
-    	state.chessBoard.makeMove(state.getChessBoard().getChess(13), new Position(9,11));
-    	state.chessBoard.makeMove(state.getChessBoard().getChess(14), new Position(9,8));
-    	state.chessBoard.makeMove(state.getChessBoard().getChess(15), new Position(8,7));
-    	state.chessBoard.makeMove(state.getChessBoard().getChess(16), new Position(4,8));
-    	state.chessBoard.makeMove(state.getChessBoard().getChess(17), new Position(4,6));
-    	state.chessBoard.makeMove(state.getChessBoard().getChess(18), new Position(2,5));
-    	state.chessBoard.makeMove(state.getChessBoard().getChess(19), new Position(1,5));
-    	state.currentPlayIndex = 0;
-    	presenter.setState(state);
-    	Mockito.verify(view).setMessage("");
-    	Mockito.verify(view).setWhoseTurn(0);
 	}
 }

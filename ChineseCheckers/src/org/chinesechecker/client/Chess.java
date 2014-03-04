@@ -9,11 +9,11 @@ public class Chess {
 		this.index = index;
 	}
 	
-	public int getindex() {
+	public int getIndex() {
 		return this.index;
 	}
 	
-	public Color GetColor() {
+	public Color getColor() {
 		return color;
 	}
 	

@@ -8,10 +8,11 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class State {
 	
+	public static final int BOARD_HEIGHT = 17;
+	public static final int BOARD_WIDTH = 17;
 	public ManLogic[] players = null;
 	public int currentPlayIndex = 0;
 	public ChessBoard chessBoard = null;
-	public Chess[][] chessesIndex;	
 	
 	public State(PlayerInfo[] playerInfos) {
 		chessBoard = new ChessBoard(playerInfos);
@@ -48,17 +49,6 @@ public class State {
 	public ChessBoard getChessBoard() {
 		return chessBoard;
 	}
-	
-	public Chess[][] getChessesIndex() {
-		Chess[][] newChessesIndex = new Chess[17][17];
-        for (int i = 0; i < 17; i++) {
-                for (int j = 0; j < 17; j++) {
-                	newChessesIndex[i][j] = chessesIndex[i][j];
-                }
-        }
-        return newChessesIndex;
-	}
-	
 	
 	@Override
     public boolean equals(Object obj) {

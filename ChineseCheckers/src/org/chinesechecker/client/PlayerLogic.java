@@ -56,7 +56,7 @@ public abstract class PlayerLogic {
 			if (chess == null) {
 				return false;
 			}
-			if (chess.GetColor() != this.GetColor()) {
+			if (chess.getColor() != this.getColor()) {
 				return false;
 			}
 		}
@@ -64,13 +64,13 @@ public abstract class PlayerLogic {
 	}
 	
 	public void makeMove(Chess chess, Position position) throws IllegalMove{
-		if (chess.GetColor() != this.GetColor()) {
+		if (chess.getColor() != this.getColor()) {
 			throw new IllegalMove("Can not move the opponent's piece!");
 		}
 		chessboard.makeMove(chess, position);
 	}
 	
-	public Color GetColor() {
+	public Color getColor() {
 		return color;
 	}
 	
@@ -102,7 +102,7 @@ public abstract class PlayerLogic {
 		Chess[] chesses = new Chess[10];
 		int index = 0;		                            
 		for (int i = 0; i < chessboard.getChessCount(); i++) {
-			if (chessboard.getChess(i).GetColor() == color) {
+			if (chessboard.getChess(i).getColor() == color) {
 				chesses[index] = chessboard.getChess(i);
 				index++;
 				if (index == 10) {
@@ -192,7 +192,6 @@ public abstract class PlayerLogic {
     List<Operation> getMoveInitial(List<Integer> playerIds) {
         int redPlayerId = playerIds.get(0);
         List<Operation> operations = Lists.newArrayList();
-        //The order of operations: turn, chessboard
         operations.add(new SetTurn(redPlayerId));
         //Set the chessboard
         PlayerInfo player1 = new PlayerInfo ("player1", Color.R, BoardArea.Area2);
@@ -210,7 +209,6 @@ public abstract class PlayerLogic {
 		State state = new State(playerInfo);
     	List<Optional<ChessBoard>> chessboard = Lists.newArrayList();
     	state.chessBoard = (ChessBoard) gameApiState.get(CHESSBOARD);
-    	state.currentPlayIndex = (int) gameApiState.get(TURN);
     	return state;
     }
     	

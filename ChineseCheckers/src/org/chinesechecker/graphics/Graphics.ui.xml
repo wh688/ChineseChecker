@@ -1,0 +1,53 @@
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder" xmlns:g="urn:import:com.google.gwt.user.client.ui">
+<ui:style type="org.chinesechecker.graphics.Graphics.MyStyle">
+.grid { border-collapse: collapse; line-height: 0px;} 
+.header { font-family: Consolas, Comic Sans, Georgia, Serif; font-size: 30px; }
+.label { font-family: Consolas, Comic Sans, Georgia, Serif; font-size: 20px; } 
+.box { margin: 10px; } 
+.msg { font-family: Consolas, Comic Sans, Georgia, Serif; font-size: 30px; } 
+.cellHover { box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; width: 30px; height: 30px; border: 1px solid yellow; }
+</ui:style>
+<ui:style field="css" type="org.chinesechecker.graphics.GameCss">
+    .highlighted {
+      outline: solid green 2px;
+          }
+          .lastmove {
+            outline: solid red 2px;
+          }
+          .grid {
+            margin-top: 45px;
+            margin-left: 43px;
+            border-spacing: 0px;
+            border-collapse: collapse;
+    }
+    .cellsizefix {
+            font-size: 0px;
+    }
+</ui:style>
+<g:DockLayoutPanel unit="PX">
+<g:north size="60">
+<g:HorizontalPanel>
+<g:Image ui:field="gameLogo"/>
+</g:HorizontalPanel>
+</g:north>
+<g:center>
+<g:VerticalPanel ui:field="gamePanel">
+<g:FlowPanel styleName="{style.box}">
+<g:Label styleName="{style.label}">Current Player:</g:Label>
+<g:Image ui:field="whoseTurnImage"/>
+</g:FlowPanel>
+<g:Button ui:field="restartBtn">Restart</g:Button>
+<g:FlowPanel styleName="{style.box}">
+<g:Label styleName="{style.label}">Game Status</g:Label>
+<g:HTML ui:field="statusHTML">Still on...</g:HTML>
+</g:FlowPanel>
+</g:VerticalPanel>
+</g:center>
+<g:west size="590">
+<g:HTMLPanel>
+<g:Grid ui:field="gameBoard" styleName="{style.grid}"></g:Grid>
+<g:Label ui:field="messageLabel" styleName="{style.msg}"/>
+</g:HTMLPanel>
+</g:west>
+</g:DockLayoutPanel>
+</ui:UiBinder>

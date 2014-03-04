@@ -14,7 +14,7 @@ public class ManLogic extends PlayerLogic {
 		if (chess == null) {
 			return;
 		}
-		if (chess.GetColor() != this.GetColor()) {
+		if (chess.getColor() != this.getColor()) {
 			throw new IllegalMove("Can not move the opponent's piece!");
 		}
 		
@@ -53,7 +53,7 @@ public class ManLogic extends PlayerLogic {
 		return Selected;
 	}
 	
-	private boolean IsCanGo(Position position) {
+	public boolean IsCanGo(Position position) {
 		boolean re = false;
 		
 		if (CanGo != null) {		
@@ -63,9 +63,7 @@ public class ManLogic extends PlayerLogic {
 					break;
 				}
 			}
-		}
-		
+		}		
 		return re;		
 	}
-
 }
