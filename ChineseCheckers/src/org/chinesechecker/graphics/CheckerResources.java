@@ -2,8 +2,9 @@ package org.chinesechecker.graphics;
 
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.ImageResource;
+import com.google.gwt.resources.client.DataResource;
 
-public interface CheckerImage extends ClientBundle {
+public interface CheckerResources extends ClientBundle {
 	@Source("images/Red.gif")
 	ImageResource redStone();
 	@Source("images/Blue.gif")

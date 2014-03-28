@@ -1,53 +1,213 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder" xmlns:g="urn:import:com.google.gwt.user.client.ui">
-<ui:style type="org.chinesechecker.graphics.Graphics.MyStyle">
-.grid { border-collapse: collapse; line-height: 0px;} 
-.header { font-family: Consolas, Comic Sans, Georgia, Serif; font-size: 30px; }
-.label { font-family: Consolas, Comic Sans, Georgia, Serif; font-size: 20px; } 
-.box { margin: 10px; } 
-.msg { font-family: Consolas, Comic Sans, Georgia, Serif; font-size: 30px; } 
-.cellHover { box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; width: 30px; height: 30px; border: 1px solid yellow; }
-</ui:style>
-<ui:style field="css" type="org.chinesechecker.graphics.GameCss">
+  <ui:style type="org.chinesechecker.graphics.Graphics.MyStyle">
+    .grid {
+      border-collapse: collapse;
+      line-height: 0px;
+    } 
+    .grid1 {
+      margin-left: 60px;
+      border-collapse: collapse;
+      line-height: 0px;
+    } 
+    .grid2 {
+      margin-left: 45px;
+      border-collapse: collapse;
+      line-height: 0px;
+    }
+    .grid3 {
+      margin-left: 30px;
+      border-collapse: collapse;
+      line-height: 0px;
+    }     
+    .grid4 {
+      margin-left: 15px;
+      border-collapse: collapse;
+      line-height: 0px;
+    } 
+    .grid5 {
+      border-collapse: collapse;
+      line-height: 0px;
+    } 
+    .grid6 {
+      margin-left: -15px;
+      border-collapse: collapse;
+      line-height: 0px;
+    } 
+    .grid7 {
+      margin-left: -30px;
+      border-collapse: collapse;
+      line-height: 0px;
+    }
+    .grid8 {
+      margin-left: -45px;
+      border-collapse: collapse;
+      line-height: 0px;
+    }     
+    .grid9 {
+      margin-left: -60px;
+      border-collapse: collapse;
+      line-height: 0px;
+    } 
+    .grid10 {
+      margin-left: -75px;
+      border-collapse: collapse;
+      line-height: 0px;
+    }
+    .grid11 {
+      margin-left: -90px;
+      border-collapse: collapse;
+      line-height: 0px;
+    }
+    .grid12 {
+      margin-left: -105px;
+      border-collapse: collapse;
+      line-height: 0px;
+    }
+    .grid13 {
+      margin-left: -120px;
+      border-collapse: collapse;
+      line-height: 0px;
+    }
+    .grid14 {
+      margin-left: -135px;
+      border-collapse: collapse;
+      line-height: 0px;
+    }
+    .grid15 {
+      margin-left: -150px;
+      border-collapse: collapse;
+      line-height: 0px;
+    }
+    .grid16 {
+      margin-left: -165px;
+      border-collapse: collapse;
+      line-height: 0px;
+    }
+    .grid17 {
+      margin-left: -180px;
+      border-collapse: collapse;
+      line-height: 0px;
+    }
+
+    .header {
+      font-family: Consolas, Comic Sans, Georgia, Serif;
+      font-size: 30px;
+    }
+
+    .label {
+      font-family: Consolas, Comic Sans, Georgia, Serif;
+      font-size: 20px;
+    } 
+
+    .hasMargin {
+      margin: 10px;
+    } 
+
+    .msg {
+      font-family: Consolas, Comic Sans, Georgia, Serif;
+      font-size: 30px;
+    } 
+
+    .cellHover {
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box; 
+      width: 30px;
+      height: 30px; 
+      border: 1px solid yellow; 
+    }
+
+    .whoseTurn {
+      position: relative;
+      z-index: 1;
+    }
+
+    .whoseTurn:hover {
+      cursor: move;
+    }
+
+    .whoseTurn span {
+      display: none;
+    }
+
+    .whoseTurn:hover span {
+      display: block;
+      position: absolute;
+      top: 1em;
+      left: 1em;
+      width: 8em;
+      border: 1px solid #fff;
+      background-color: #FFFF99;
+      text-align: center;
+      opacity: 0.9;
+    }
+  </ui:style>
+
+  <ui:style field="css" type="org.chinesechecker.graphics.GameCss">
     .highlighted {
       outline: solid green 2px;
-          }
-          .lastmove {
-            outline: solid red 2px;
-          }
-          .grid {
-            margin-top: 45px;
-            margin-left: 43px;
-            border-spacing: 0px;
-            border-collapse: collapse;
+    }
+    .lastmove {
+      outline: solid red 2px;
+    }
+    .grid {
+      margin-top: 45px;
+      margin-left: 43px;
+      border-spacing: 0px;
+      border-collapse: collapse;
     }
     .cellsizefix {
-            font-size: 0px;
+      font-size: 0px;
     }
-</ui:style>
-<g:DockLayoutPanel unit="PX">
-<g:north size="60">
-<g:HorizontalPanel>
-<g:Image ui:field="gameLogo"/>
-</g:HorizontalPanel>
-</g:north>
-<g:center>
-<g:VerticalPanel ui:field="gamePanel">
-<g:FlowPanel styleName="{style.box}">
-<g:Label styleName="{style.label}">Current Player:</g:Label>
-<g:Image ui:field="whoseTurnImage"/>
-</g:FlowPanel>
-<g:Button ui:field="restartBtn">Restart</g:Button>
-<g:FlowPanel styleName="{style.box}">
-<g:Label styleName="{style.label}">Game Status</g:Label>
-<g:HTML ui:field="statusHTML">Still on...</g:HTML>
-</g:FlowPanel>
-</g:VerticalPanel>
-</g:center>
-<g:west size="590">
-<g:HTMLPanel>
-<g:Grid ui:field="gameBoard" styleName="{style.grid}"></g:Grid>
-<g:Label ui:field="messageLabel" styleName="{style.msg}"/>
-</g:HTMLPanel>
-</g:west>
-</g:DockLayoutPanel>
+  </ui:style>
+
+  <g:DockLayoutPanel unit="PX">
+    <g:north size="60">
+      <g:HorizontalPanel>
+        <g:Image ui:field="gameLogo"/>
+      </g:HorizontalPanel>
+    </g:north>
+
+    <g:center>
+      <g:HTMLPanel ui:field="gamePanel">
+        <g:HTMLPanel styleName="{style.hasMargin}">
+          <g:Label styleName="{style.label}">Current Player:</g:Label>
+          <span class="{style.whoseTurn}">
+            <g:Image ui:field="whoseTurnImage"></g:Image>
+          </span>
+        </g:HTMLPanel>
+        <div>
+          <g:Button ui:field="restartBtn">Restart</g:Button>
+        </div>
+        <g:FlowPanel styleName="{style.hasMargin}">
+          <g:Label styleName="{style.label}">Game Status</g:Label>
+          <g:HTML ui:field="statusHTML">Still on...</g:HTML>
+        </g:FlowPanel>
+      </g:HTMLPanel>
+    </g:center>
+
+    <g:west size="590">
+      <g:HTMLPanel>
+        <g:Grid ui:field="gameBoard1" styleName="{style.grid1}"></g:Grid>  
+        <g:Grid ui:field="gameBoard2" styleName="{style.grid2}"></g:Grid>     
+        <g:Grid ui:field="gameBoard3" styleName="{style.grid3}"></g:Grid>   
+        <g:Grid ui:field="gameBoard4" styleName="{style.grid4}"></g:Grid>   
+        <g:Grid ui:field="gameBoard5" styleName="{style.grid5}"></g:Grid>     
+        <g:Grid ui:field="gameBoard6" styleName="{style.grid6}"></g:Grid> 
+        <g:Grid ui:field="gameBoard7" styleName="{style.grid7}"></g:Grid> 
+        <g:Grid ui:field="gameBoard8" styleName="{style.grid8}"></g:Grid> 
+        <g:Grid ui:field="gameBoard9" styleName="{style.grid9}"></g:Grid> 
+        <g:Grid ui:field="gameBoard10" styleName="{style.grid10}"></g:Grid> 
+        <g:Grid ui:field="gameBoard11" styleName="{style.grid11}"></g:Grid> 
+        <g:Grid ui:field="gameBoard12" styleName="{style.grid12}"></g:Grid> 
+        <g:Grid ui:field="gameBoard13" styleName="{style.grid13}"></g:Grid> 
+        <g:Grid ui:field="gameBoard14" styleName="{style.grid14}"></g:Grid> 
+        <g:Grid ui:field="gameBoard15" styleName="{style.grid15}"></g:Grid> 
+        <g:Grid ui:field="gameBoard16" styleName="{style.grid16}"></g:Grid> 
+        <g:Grid ui:field="gameBoard17" styleName="{style.grid17}"></g:Grid> 
+        <g:Label ui:field="messageLabel" styleName="{style.msg}"/>        
+      </g:HTMLPanel>
+    </g:west>
+  </g:DockLayoutPanel>
 </ui:UiBinder>

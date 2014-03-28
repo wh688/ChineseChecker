@@ -1,7 +1,5 @@
 package org.chinesechecker.graphics;
 
-import java.util.List;
-
 import org.chinesechecker.client.BoardArea;
 import org.chinesechecker.client.Chess;
 import org.chinesechecker.client.ChessBoard;
@@ -10,15 +8,12 @@ import org.chinesechecker.client.ManLogic;
 import org.chinesechecker.client.PlayerInfo;
 import org.chinesechecker.client.Position;
 import org.chinesechecker.client.State;
-import org.chinesechecker.client.GameApi.Container;
-import org.chinesechecker.client.GameApi.Operation;
-import org.chinesechecker.client.GameApi.SetTurn;
-import org.chinesechecker.client.GameApi.UpdateUI;
 import org.chinesechecker.client.IllegalMove;
-
-import com.google.common.base.Optional;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
+import org.game_api.GameApi.UpdateUI;
+import org.game_api.GameApi.Container;
+import org.game_api.GameApi.Operation;
+import org.game_api.GameApi.SetTurn;
+import org.game_api.GameApi.UpdateUI;
 
 /**
  * The presenter that controls the Chinese checkers graphics.
@@ -32,6 +27,7 @@ public class Presenter {
 	public State currentState;
 	public Position selected;	
 	public final View view;
+	private final Container container;
 	public boolean isMyTurn = true;
 	public Chess[][] chessboard;
 	
@@ -43,10 +39,16 @@ public class Presenter {
 		void showStatus(String html);
 		void setButton(String str);
 		void setGameOver(boolean isGameOver);
+		void animateSetStone(Position p);
+		void pieceCapturedSound();
+		void pieceDownSound();
+		void errorSound();
+		void restartSound();
 	}
 	
-	public Presenter(View view) {
+	public Presenter(View view, Container container) {
 		this.view = view;
+		this.container = container;
 		PlayerInfo player1 = new PlayerInfo ("player1", Color.R, BoardArea.Area2);
 		PlayerInfo player2 = new PlayerInfo ("player2", Color.B, BoardArea.Area5);
 		PlayerInfo [] playerInfo = {player1, player2};
@@ -57,9 +59,10 @@ public class Presenter {
 	public void selectCell(int row, int col) {
 	    if (cannotMove()) {
 	    	return;
-	    }	    
+	    } 
+	    view.pieceDownSound();
 	    updateUI(selected, new Position(row, col));
-		updateChessBoard(currentState.chessBoard.getChessesIndex());
+	    updateChessBoard(currentState.chessBoard.getChessesIndex());		    
 	}
 	
 	public void updateUI(Position from, Position to) {
@@ -68,6 +71,7 @@ public class Presenter {
 				return;
 			}
 			if (! currentState.chessBoard.getChess(to).getColor().equals(currentState.players[currentState.currentPlayIndex].getColor())) {
+		    	view.errorSound();
 				view.setMessage("Can not move the opponent's piece!");
 				return;
 			}
@@ -76,12 +80,16 @@ public class Presenter {
 			unselectPiece(from);
 			try {
 				currentState.players[currentState.currentPlayIndex].SelectChess(from);
+				view.animateSetStone(from);
+				
 				currentState.players[currentState.currentPlayIndex].GoChess(to);
+				view.animateSetStone(to);
 				if (currentState.players[currentState.currentPlayIndex].Winned() == false) {
 					currentState.getNextPlay();
 				}
 		        updateInfo();
 			} catch (IllegalMove e) {
+		    	view.errorSound();
 	            view.setMessage(e.getMessage());
 			}
 		}			
@@ -176,5 +184,11 @@ public class Presenter {
 		Chess[][] newBoard = currentState.chessBoard.getChessesIndex();
 		updateInfo();
 		updateChessBoard(newBoard);
+		view.restartSound();
 	}
+
+	public void updateUI(UpdateUI updateUI) {
+		// TODO Auto-generated method stub
+		
+	}	             
 }

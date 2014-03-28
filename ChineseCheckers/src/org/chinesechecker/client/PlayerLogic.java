@@ -218,5 +218,11 @@ public abstract class PlayerLogic {
     		throw new RuntimeException("We have a hacker! debugArguments="
     				+ Arrays.toString(debugArguments));
     	}
-    }	
+    }
+
+	public org.game_api.GameApi.VerifyMoveDone verify(
+			org.game_api.GameApi.VerifyMove verifyMove) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
