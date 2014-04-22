@@ -11,11 +11,21 @@ import org.game_api.GameApi.VerifyMove;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 
+import com.googlecode.mgwt.mvp.client.Animation;
+import com.googlecode.mgwt.ui.client.MGWT;
+import com.googlecode.mgwt.ui.client.MGWTSettings;
+import com.googlecode.mgwt.ui.client.animation.AnimationHelper;
+import com.googlecode.mgwt.ui.client.widget.Button;
+import com.googlecode.mgwt.ui.client.widget.LayoutPanel;
+
 public class CheckerEntryPoint implements EntryPoint {
+	
 	Container container;
 	Presenter presenter;	
 	@Override
-	public void onModuleLoad() {		
+	public void onModuleLoad() {	
+
+		MGWT.applySettings(MGWTSettings.getAppSetting());
 		Game game = new Game() {
 			@Override
 			public void sendVerifyMove(VerifyMove verifyMove) {

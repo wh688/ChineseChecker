@@ -22,14 +22,21 @@ import com.google.gwt.event.dom.client.DragStartEvent;
 import com.google.gwt.event.dom.client.DragStartHandler;
 import com.google.gwt.event.dom.client.DropEvent;
 import com.google.gwt.event.dom.client.DropHandler;
+import com.google.gwt.event.dom.client.DragDropEventBase;
+import com.google.gwt.event.dom.client.HasAllDragAndDropHandlers;
+/*
+import com.google.gwt.event.dom.client.TouchStartEvent;
+import com.google.gwt.event.dom.client.TouchStartHandler;
+import com.google.gwt.event.dom.client.TouchMoveEvent;
+import com.google.gwt.event.dom.client.TouchMoveHandler;
+import com.google.gwt.event.dom.client.TouchEndEvent;
+import com.google.gwt.event.dom.client.TouchEndHandler;
+import com.google.gwt.event.dom.client.TouchEvent;*/
 
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-
-import com.google.gwt.event.dom.client.DragDropEventBase;
-import com.google.gwt.event.dom.client.HasAllDragAndDropHandlers;
 
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
@@ -45,13 +52,15 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.dom.client.AudioElement;
 import com.google.gwt.media.client.Audio;
 import com.google.gwt.uibinder.client.UiHandler;
 
 public class Graphics extends Composite implements Presenter.View {
 	
-	static final int STONE_SIZE = 30;
+	static final int STONE_SIZE = 20;
 	static final int ANIMATION_DURATION = 2000;
 	
 	interface GraphicsUiBinder extends UiBinder<Widget, Graphics> {
@@ -65,7 +74,10 @@ public class Graphics extends Composite implements Presenter.View {
 	@UiField
 	MyStyle style;
 	//@UiField
+	//HorizontalPanel outerBoard;
+	//@UiField
 	//Grid gameBoard;
+	
 	@UiField
 	Grid gameBoard1;
 	@UiField
@@ -100,6 +112,7 @@ public class Graphics extends Composite implements Presenter.View {
 	Grid gameBoard16;
 	@UiField
 	Grid gameBoard17;
+	
 	@UiField
 	Button restartBtn;
 	@UiField
@@ -108,16 +121,22 @@ public class Graphics extends Composite implements Presenter.View {
 	Label messageLabel;
 	@UiField
 	HTML statusHTML;
-	@UiField
-	Image gameLogo;
+	//@UiField
+	//Image gameLogo;
 	@UiField public static
 	GameCss css;
 	
-	public Presenter presenter;
 	public CheckerResources checkerResources;
+	public Presenter presenter;
+	public AbsolutePanel innerBoard;	
+	public String innerBoardWidth = "340px";
+	public String innerBoardHeight = "340px";
+	
 	public Image[][] cells = new Image[ChessBoard.ROWS][ChessBoard.COLS];
 	public boolean isGameOver;
 	public Color whoseTurn;
+	private Image[][] squareImages = new Image[ChessBoard.ROWS][ChessBoard.COLS];
+	private Image[][] pieceImages = new Image[ChessBoard.ROWS][ChessBoard.COLS];
 	public Audio pieceCaptured = Audio.createIfSupported();
 	public Audio pieceDown = Audio.createIfSupported();
 	public Audio errorSound = Audio.createIfSupported();
@@ -126,18 +145,20 @@ public class Graphics extends Composite implements Presenter.View {
 	public Graphics() {
 		presenter = new Presenter(this, null);
 		this.checkerResources = GWT.create(CheckerResources.class);
+		innerBoard = new AbsolutePanel();
+	  	innerBoard.setSize(innerBoardWidth, innerBoardHeight);		
 		initWidget(uiBinder.createAndBindUi(this));
-		gameLogo.setResource(checkerResources.title());	    
+		//gameLogo.setResource(checkerResources.title());	    
 	    pieceCaptured.setSrc("sounds/pieceCaptured.mp3");
 	    pieceDown.setSrc("sounds/pieceDown.mp3");
 	    errorSound.setSrc("sounds/error.mp3");
 	    restartSound.setSrc("sounds/restart.mp3");
 	    isGameOver = false;
 		whoseTurn = R;
-		/**
+		/*
 		gameBoard.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard.setWidth("540px");
-		gameBoard.setHeight("540px");
+		gameBoard.setWidth("360px");
+		gameBoard.setHeight("360px");
 		gameBoard.setCellPadding(0);
 	    gameBoard.setCellSpacing(0);
 	    gameBoard.setBorderWidth(0);
@@ -148,6 +169,29 @@ public class Graphics extends Composite implements Presenter.View {
 				cells[i][j] = cell;
 				final int row = i;
 				final int col = j;	
+
+				cell.addTouchStartHandler(new TouchStartHandler() {
+                    @Override
+                    public void onTouchStart(TouchStartEvent event) {
+                    	presenter.selectCell(row, col);
+                    	//cell.getElement().addClassName(style.cellHover());                    	
+                    }
+				});
+				cell.addTouchMoveHandler(new TouchMoveHandler() {
+                    @Override
+                    public void onTouchMove(TouchMoveEvent event) {
+                    	//presenter.selectCell(row, col);
+                    }
+				});				
+				
+				cell.addTouchEndHandler(new TouchEndHandler() {
+                    @Override
+                    public void onTouchEnd(TouchEndEvent event) {
+                    	presenter.selectCell(row, col);
+                    	//cell.getElement().removeClassName(style.cellHover());
+                    }
+				});
+				
 				cell.getElement().setDraggable(Element.DRAGGABLE_TRUE);
 				cell.addDragStartHandler(new DragStartHandler() {
                     @Override
@@ -179,6 +223,7 @@ public class Graphics extends Composite implements Presenter.View {
                     	cell.getElement().removeClassName(style.cellHover());
                     }
 				});
+				
 				cell.addClickHandler(new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
@@ -207,8 +252,8 @@ public class Graphics extends Composite implements Presenter.View {
 		*/
 		
 		gameBoard1.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard1.setWidth("540px");
-		gameBoard1.setHeight("30px");
+		gameBoard1.setWidth("360px");
+		gameBoard1.setHeight("20px");
 		gameBoard1.setCellPadding(0);
 		gameBoard1.setCellSpacing(0);
 		gameBoard1.setBorderWidth(0);
@@ -219,6 +264,7 @@ public class Graphics extends Composite implements Presenter.View {
 				cells[i][j] = cell;
 				final int row = i;
 				final int col = j;
+				
 				cell.getElement().setDraggable(Element.DRAGGABLE_TRUE);
 				cell.addDragStartHandler(new DragStartHandler() {
                     @Override
@@ -267,8 +313,8 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard2.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard2.setWidth("540px");
-		gameBoard2.setHeight("30px");
+		gameBoard2.setWidth("360px");
+		gameBoard2.setHeight("20px");
 		gameBoard2.setCellPadding(0);
 		gameBoard2.setCellSpacing(0);
 		gameBoard2.setBorderWidth(0);
@@ -279,6 +325,7 @@ public class Graphics extends Composite implements Presenter.View {
 				cells[i][j] = cell;
 				final int row = i;
 				final int col = j;
+				
 				cell.getElement().setDraggable(Element.DRAGGABLE_TRUE);
 				cell.addDragStartHandler(new DragStartHandler() {
                     @Override
@@ -327,8 +374,8 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard3.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard3.setWidth("540px");
-		gameBoard3.setHeight("30px");
+		gameBoard3.setWidth("360px");
+		gameBoard3.setHeight("20px");
 		gameBoard3.setCellPadding(0);
 		gameBoard3.setCellSpacing(0);
 		gameBoard3.setBorderWidth(0);
@@ -339,6 +386,7 @@ public class Graphics extends Composite implements Presenter.View {
 				cells[i][j] = cell;
 				final int row = i;
 				final int col = j;
+				
 				cell.getElement().setDraggable(Element.DRAGGABLE_TRUE);
 				cell.addDragStartHandler(new DragStartHandler() {
                     @Override
@@ -387,8 +435,8 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard4.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard4.setWidth("540px");
-		gameBoard4.setHeight("30px");
+		gameBoard4.setWidth("360px");
+		gameBoard4.setHeight("20px");
 		gameBoard4.setCellPadding(0);
 		gameBoard4.setCellSpacing(0);
 		gameBoard4.setBorderWidth(0);
@@ -399,6 +447,7 @@ public class Graphics extends Composite implements Presenter.View {
 				cells[i][j] = cell;
 				final int row = i;
 				final int col = j;
+				
 				cell.getElement().setDraggable(Element.DRAGGABLE_TRUE);
 				cell.addDragStartHandler(new DragStartHandler() {
                     @Override
@@ -447,8 +496,8 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard5.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard5.setWidth("540px");
-		gameBoard5.setHeight("30px");
+		gameBoard5.setWidth("360px");
+		gameBoard5.setHeight("20px");
 		gameBoard5.setCellPadding(0);
 		gameBoard5.setCellSpacing(0);
 		gameBoard5.setBorderWidth(0);
@@ -459,6 +508,7 @@ public class Graphics extends Composite implements Presenter.View {
 				cells[i][j] = cell;
 				final int row = i;
 				final int col = j;
+				
 				cell.getElement().setDraggable(Element.DRAGGABLE_TRUE);
 				cell.addDragStartHandler(new DragStartHandler() {
                     @Override
@@ -502,8 +552,8 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard6.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard6.setWidth("540px");
-		gameBoard6.setHeight("30px");
+		gameBoard6.setWidth("360px");
+		gameBoard6.setHeight("20px");
 		gameBoard6.setCellPadding(0);
 		gameBoard6.setCellSpacing(0);
 		gameBoard6.setBorderWidth(0);
@@ -514,6 +564,7 @@ public class Graphics extends Composite implements Presenter.View {
 				cells[i][j] = cell;
 				final int row = i;
 				final int col = j;
+				
 				cell.getElement().setDraggable(Element.DRAGGABLE_TRUE);
 				cell.addDragStartHandler(new DragStartHandler() {
                     @Override
@@ -557,8 +608,8 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard7.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard7.setWidth("540px");
-		gameBoard7.setHeight("30px");
+		gameBoard7.setWidth("360px");
+		gameBoard7.setHeight("20px");
 		gameBoard7.setCellPadding(0);
 		gameBoard7.setCellSpacing(0);
 		gameBoard7.setBorderWidth(0);
@@ -569,6 +620,7 @@ public class Graphics extends Composite implements Presenter.View {
 				cells[i][j] = cell;
 				final int row = i;
 				final int col = j;
+				
 				cell.getElement().setDraggable(Element.DRAGGABLE_TRUE);
 				cell.addDragStartHandler(new DragStartHandler() {
                     @Override
@@ -612,8 +664,8 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard8.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard8.setWidth("540px");
-		gameBoard8.setHeight("30px");
+		gameBoard8.setWidth("360px");
+		gameBoard8.setHeight("20px");
 		gameBoard8.setCellPadding(0);
 		gameBoard8.setCellSpacing(0);
 		gameBoard8.setBorderWidth(0);
@@ -624,6 +676,7 @@ public class Graphics extends Composite implements Presenter.View {
 				cells[i][j] = cell;
 				final int row = i;
 				final int col = j;
+				
 				cell.getElement().setDraggable(Element.DRAGGABLE_TRUE);
 				cell.addDragStartHandler(new DragStartHandler() {
                     @Override
@@ -667,8 +720,8 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard9.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard9.setWidth("540px");
-		gameBoard9.setHeight("30px");
+		gameBoard9.setWidth("360px");
+		gameBoard9.setHeight("20px");
 		gameBoard9.setCellPadding(0);
 		gameBoard9.setCellSpacing(0);
 		gameBoard9.setBorderWidth(0);
@@ -679,6 +732,7 @@ public class Graphics extends Composite implements Presenter.View {
 				cells[i][j] = cell;
 				final int row = i;
 				final int col = j;
+				
 				cell.getElement().setDraggable(Element.DRAGGABLE_TRUE);
 				cell.addDragStartHandler(new DragStartHandler() {
                     @Override
@@ -722,8 +776,8 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard10.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard10.setWidth("540px");
-		gameBoard10.setHeight("30px");
+		gameBoard10.setWidth("360px");
+		gameBoard10.setHeight("20px");
 		gameBoard10.setCellPadding(0);
 		gameBoard10.setCellSpacing(0);
 		gameBoard10.setBorderWidth(0);
@@ -734,6 +788,7 @@ public class Graphics extends Composite implements Presenter.View {
 				cells[i][j] = cell;
 				final int row = i;
 				final int col = j;	
+				
 				cell.getElement().setDraggable(Element.DRAGGABLE_TRUE);
 				cell.addDragStartHandler(new DragStartHandler() {
                     @Override
@@ -777,8 +832,8 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard11.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard11.setWidth("540px");
-		gameBoard11.setHeight("30px");
+		gameBoard11.setWidth("360px");
+		gameBoard11.setHeight("20px");
 		gameBoard11.setCellPadding(0);
 		gameBoard11.setCellSpacing(0);
 		gameBoard11.setBorderWidth(0);
@@ -789,6 +844,7 @@ public class Graphics extends Composite implements Presenter.View {
 				cells[i][j] = cell;
 				final int row = i;
 				final int col = j;
+				
 				cell.getElement().setDraggable(Element.DRAGGABLE_TRUE);
 				cell.addDragStartHandler(new DragStartHandler() {
                     @Override
@@ -832,8 +888,8 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard12.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard12.setWidth("540px");
-		gameBoard12.setHeight("30px");
+		gameBoard12.setWidth("360px");
+		gameBoard12.setHeight("20px");
 		gameBoard12.setCellPadding(0);
 		gameBoard12.setCellSpacing(0);
 		gameBoard12.setBorderWidth(0);
@@ -843,7 +899,8 @@ public class Graphics extends Composite implements Presenter.View {
 				final Image cell = new Image();
 				cells[i][j] = cell;
 				final int row = i;
-				final int col = j;	
+				final int col = j;
+				
 				cell.getElement().setDraggable(Element.DRAGGABLE_TRUE);
 				cell.addDragStartHandler(new DragStartHandler() {
                     @Override
@@ -887,8 +944,8 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard13.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard13.setWidth("540px");
-		gameBoard13.setHeight("30px");
+		gameBoard13.setWidth("360px");
+		gameBoard13.setHeight("20px");
 		gameBoard13.setCellPadding(0);
 		gameBoard13.setCellSpacing(0);
 		gameBoard13.setBorderWidth(0);
@@ -899,6 +956,7 @@ public class Graphics extends Composite implements Presenter.View {
 				cells[i][j] = cell;
 				final int row = i;
 				final int col = j;	
+				
 				cell.getElement().setDraggable(Element.DRAGGABLE_TRUE);
 				cell.addDragStartHandler(new DragStartHandler() {
                     @Override
@@ -942,8 +1000,8 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard14.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard14.setWidth("540px");
-		gameBoard14.setHeight("30px");
+		gameBoard14.setWidth("360px");
+		gameBoard14.setHeight("20px");
 		gameBoard14.setCellPadding(0);
 		gameBoard14.setCellSpacing(0);
 		gameBoard14.setBorderWidth(0);
@@ -954,6 +1012,7 @@ public class Graphics extends Composite implements Presenter.View {
 				cells[i][j] = cell;
 				final int row = i;
 				final int col = j;
+				
 				cell.getElement().setDraggable(Element.DRAGGABLE_TRUE);
 				cell.addDragStartHandler(new DragStartHandler() {
                     @Override
@@ -1002,8 +1061,8 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard15.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard15.setWidth("540px");
-		gameBoard15.setHeight("30px");
+		gameBoard15.setWidth("360px");
+		gameBoard15.setHeight("20px");
 		gameBoard15.setCellPadding(0);
 		gameBoard15.setCellSpacing(0);
 		gameBoard15.setBorderWidth(0);
@@ -1014,6 +1073,7 @@ public class Graphics extends Composite implements Presenter.View {
 				cells[i][j] = cell;
 				final int row = i;
 				final int col = j;	
+				
 				cell.getElement().setDraggable(Element.DRAGGABLE_TRUE);
 				cell.addDragStartHandler(new DragStartHandler() {
                     @Override
@@ -1062,8 +1122,8 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard16.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard16.setWidth("540px");
-		gameBoard16.setHeight("30px");
+		gameBoard16.setWidth("360px");
+		gameBoard16.setHeight("20px");
 		gameBoard16.setCellPadding(0);
 		gameBoard16.setCellSpacing(0);
 		gameBoard16.setBorderWidth(0);
@@ -1074,6 +1134,7 @@ public class Graphics extends Composite implements Presenter.View {
 				cells[i][j] = cell;
 				final int row = i;
 				final int col = j;	
+				
 				cell.getElement().setDraggable(Element.DRAGGABLE_TRUE);
 				cell.addDragStartHandler(new DragStartHandler() {
                     @Override
@@ -1122,8 +1183,8 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard17.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard17.setWidth("540px");
-		gameBoard17.setHeight("30px");
+		gameBoard17.setWidth("360px");
+		gameBoard17.setHeight("20px");
 		gameBoard17.setCellPadding(0);
 		gameBoard17.setCellSpacing(0);
 		gameBoard17.setBorderWidth(0);
@@ -1133,7 +1194,8 @@ public class Graphics extends Composite implements Presenter.View {
 				final Image cell = new Image();
 				cells[i][j] = cell;
 				final int row = i;
-				final int col = j;	
+				final int col = j;
+				
 				cell.getElement().setDraggable(Element.DRAGGABLE_TRUE);
 				cell.addDragStartHandler(new DragStartHandler() {
                     @Override
@@ -1190,7 +1252,16 @@ public class Graphics extends Composite implements Presenter.View {
 			}
 		});
 	}
-	
+	/*
+	@Override
+	public void setPresenter(Presenter abalonePresenter) {
+		this.presenter = abalonePresenter;
+		abaloneDragController = new MyDragController(innerBoard, false, abalonePresenter);
+		abaloneDragController.setBehaviorConstrainedToBoundaryPanel(true);
+		abaloneDragController.setBehaviorMultipleSelection(false);
+		abaloneDragController.setBehaviorDragStartSensitivity(1);
+	}
+	*/
 	public Presenter getPresenter() {
 		return presenter;
 	}

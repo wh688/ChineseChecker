@@ -44,11 +44,13 @@ public class Presenter {
 		void pieceDownSound();
 		void errorSound();
 		void restartSound();
+		//void setPresenter(Presenter abalonePresenter);
 	}
 	
 	public Presenter(View view, Container container) {
 		this.view = view;
 		this.container = container;
+		//view.setPresenter(this);
 		PlayerInfo player1 = new PlayerInfo ("player1", Color.R, BoardArea.Area2);
 		PlayerInfo player2 = new PlayerInfo ("player2", Color.B, BoardArea.Area5);
 		PlayerInfo [] playerInfo = {player1, player2};
@@ -56,13 +58,14 @@ public class Presenter {
 		chessboard = currentState.chessBoard.getChessesIndex();
 	}	
 	
-	public void selectCell(int row, int col) {
+	public boolean selectCell(int row, int col) {
 	    if (cannotMove()) {
-	    	return;
+	    	return false;
 	    } 
 	    view.pieceDownSound();
 	    updateUI(selected, new Position(row, col));
-	    updateChessBoard(currentState.chessBoard.getChessesIndex());		    
+	    updateChessBoard(currentState.chessBoard.getChessesIndex());
+	    return true;
 	}
 	
 	public void updateUI(Position from, Position to) {

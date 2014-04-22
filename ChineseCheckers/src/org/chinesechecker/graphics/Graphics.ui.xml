@@ -1,27 +1,29 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
-<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder" xmlns:g="urn:import:com.google.gwt.user.client.ui">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder" xmlns:g="urn:import:com.google.gwt.user.client.ui" 
+  xmlns:mgwt="urn:import:com.googlecode.mgwt.ui.client.widget">
   <ui:style type="org.chinesechecker.graphics.Graphics.MyStyle">
     .grid {
       border-collapse: collapse;
       line-height: 0px;
     } 
+    
     .grid1 {
-      margin-left: 60px;
+      margin-left: 40px;
       border-collapse: collapse;
       line-height: 0px;
     } 
     .grid2 {
-      margin-left: 45px;
+      margin-left: 30px;
       border-collapse: collapse;
       line-height: 0px;
     }
     .grid3 {
-      margin-left: 30px;
+      margin-left: 20px;
       border-collapse: collapse;
       line-height: 0px;
     }     
     .grid4 {
-      margin-left: 15px;
+      margin-left: 10px;
       border-collapse: collapse;
       line-height: 0px;
     } 
@@ -30,66 +32,66 @@
       line-height: 0px;
     } 
     .grid6 {
-      margin-left: -15px;
+      margin-left: -10px;
       border-collapse: collapse;
       line-height: 0px;
     } 
     .grid7 {
-      margin-left: -30px;
+      margin-left: -20px;
       border-collapse: collapse;
       line-height: 0px;
     }
     .grid8 {
-      margin-left: -45px;
+      margin-left: -30px;
       border-collapse: collapse;
       line-height: 0px;
     }     
     .grid9 {
-      margin-left: -60px;
+      margin-left: -40px;
       border-collapse: collapse;
       line-height: 0px;
     } 
     .grid10 {
-      margin-left: -75px;
+      margin-left: -50px;
       border-collapse: collapse;
       line-height: 0px;
     }
     .grid11 {
-      margin-left: -90px;
+      margin-left: -60px;
       border-collapse: collapse;
       line-height: 0px;
     }
     .grid12 {
-      margin-left: -105px;
+      margin-left: -70px;
       border-collapse: collapse;
       line-height: 0px;
     }
     .grid13 {
-      margin-left: -120px;
+      margin-left: -80px;
       border-collapse: collapse;
       line-height: 0px;
     }
     .grid14 {
-      margin-left: -135px;
+      margin-left: -90px;
       border-collapse: collapse;
       line-height: 0px;
     }
     .grid15 {
-      margin-left: -150px;
+      margin-left: -100px;
       border-collapse: collapse;
       line-height: 0px;
     }
     .grid16 {
-      margin-left: -165px;
+      margin-left: -110px;
       border-collapse: collapse;
       line-height: 0px;
     }
     .grid17 {
-      margin-left: -180px;
+      margin-left: -120px;
       border-collapse: collapse;
       line-height: 0px;
     }
-
+    
     .header {
       font-family: Consolas, Comic Sans, Georgia, Serif;
       font-size: 30px;
@@ -105,16 +107,16 @@
     } 
 
     .msg {
-      font-family: Consolas, Comic Sans, Georgia, Serif;
-      font-size: 30px;
+      font-family: Arial, sans-serif;
+      font-size: 13px;
     } 
 
     .cellHover {
       box-sizing: border-box;
       -moz-box-sizing: border-box;
       -webkit-box-sizing: border-box; 
-      width: 30px;
-      height: 30px; 
+      width: 25px;
+      height: 25px; 
       border: 1px solid yellow; 
     }
 
@@ -163,32 +165,28 @@
   </ui:style>
 
   <g:DockLayoutPanel unit="PX">
+    <!-- <g:west size="358">
+      <g:HorizontalPanel ui:field="outerBoard"/>
+    </g:west>
+       
     <g:north size="60">
       <g:HorizontalPanel>
         <g:Image ui:field="gameLogo"/>
       </g:HorizontalPanel>
-    </g:north>
+    </g:north>-->
 
-    <g:center>
+    <g:center size="150">
       <g:HTMLPanel ui:field="gamePanel">
-        <g:HTMLPanel styleName="{style.hasMargin}">
-          <g:Label styleName="{style.label}">Current Player:</g:Label>
-          <span class="{style.whoseTurn}">
-            <g:Image ui:field="whoseTurnImage"></g:Image>
-          </span>
-        </g:HTMLPanel>
-        <div>
+          Current Player:<g:Image ui:field="whoseTurnImage"></g:Image>
           <g:Button ui:field="restartBtn">Restart</g:Button>
-        </div>
-        <g:FlowPanel styleName="{style.hasMargin}">
-          <g:Label styleName="{style.label}">Game Status</g:Label>
           <g:HTML ui:field="statusHTML">Still on...</g:HTML>
-        </g:FlowPanel>
       </g:HTMLPanel>
     </g:center>
 
-    <g:west size="590">
+    <g:north size="358">
       <g:HTMLPanel>
+        <!-- <g:Grid ui:field="gameBoard" styleName="{style.grid}"></g:Grid> -->
+        
         <g:Grid ui:field="gameBoard1" styleName="{style.grid1}"></g:Grid>  
         <g:Grid ui:field="gameBoard2" styleName="{style.grid2}"></g:Grid>     
         <g:Grid ui:field="gameBoard3" styleName="{style.grid3}"></g:Grid>   
@@ -208,6 +206,6 @@
         <g:Grid ui:field="gameBoard17" styleName="{style.grid17}"></g:Grid> 
         <g:Label ui:field="messageLabel" styleName="{style.msg}"/>        
       </g:HTMLPanel>
-    </g:west>
+    </g:north>
   </g:DockLayoutPanel>
 </ui:UiBinder>
