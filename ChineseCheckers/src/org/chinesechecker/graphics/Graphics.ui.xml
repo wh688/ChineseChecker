@@ -8,22 +8,22 @@
     } 
     
     .grid1 {
-      margin-left: 40px;
+      margin-left: 20px;
       border-collapse: collapse;
       line-height: 0px;
     } 
     .grid2 {
-      margin-left: 30px;
+      margin-left: 15px;
       border-collapse: collapse;
       line-height: 0px;
     }
     .grid3 {
-      margin-left: 20px;
+      margin-left: 10px;
       border-collapse: collapse;
       line-height: 0px;
     }     
     .grid4 {
-      margin-left: 10px;
+      margin-left: 5px;
       border-collapse: collapse;
       line-height: 0px;
     } 
@@ -32,62 +32,62 @@
       line-height: 0px;
     } 
     .grid6 {
-      margin-left: -10px;
+      margin-left: -5px;
       border-collapse: collapse;
       line-height: 0px;
     } 
     .grid7 {
-      margin-left: -20px;
+      margin-left: -10px;
       border-collapse: collapse;
       line-height: 0px;
     }
     .grid8 {
-      margin-left: -30px;
+      margin-left: -15px;
       border-collapse: collapse;
       line-height: 0px;
     }     
     .grid9 {
-      margin-left: -40px;
+      margin-left: -20px;
       border-collapse: collapse;
       line-height: 0px;
     } 
     .grid10 {
-      margin-left: -50px;
+      margin-left: -25px;
       border-collapse: collapse;
       line-height: 0px;
     }
     .grid11 {
-      margin-left: -60px;
+      margin-left: -30px;
       border-collapse: collapse;
       line-height: 0px;
     }
     .grid12 {
-      margin-left: -70px;
+      margin-left: -35px;
       border-collapse: collapse;
       line-height: 0px;
     }
     .grid13 {
-      margin-left: -80px;
+      margin-left: -40px;
       border-collapse: collapse;
       line-height: 0px;
     }
     .grid14 {
-      margin-left: -90px;
+      margin-left: -45px;
       border-collapse: collapse;
       line-height: 0px;
     }
     .grid15 {
-      margin-left: -100px;
+      margin-left: -50px;
       border-collapse: collapse;
       line-height: 0px;
     }
     .grid16 {
-      margin-left: -110px;
+      margin-left: -55px;
       border-collapse: collapse;
       line-height: 0px;
     }
     .grid17 {
-      margin-left: -120px;
+      margin-left: -60px;
       border-collapse: collapse;
       line-height: 0px;
     }
@@ -144,6 +144,9 @@
       text-align: center;
       opacity: 0.9;
     }
+    .sidebar {
+      margin-left: -30px;
+    } 
   </ui:style>
 
   <ui:style field="css" type="org.chinesechecker.graphics.GameCss">
@@ -173,20 +176,12 @@
       <g:HorizontalPanel>
         <g:Image ui:field="gameLogo"/>
       </g:HorizontalPanel>
-    </g:north>-->
-
-    <g:center size="150">
-      <g:HTMLPanel ui:field="gamePanel">
-          Current Player:<g:Image ui:field="whoseTurnImage"></g:Image>
-          <g:Button ui:field="restartBtn">Restart</g:Button>
-          <g:HTML ui:field="statusHTML">Still on...</g:HTML>
-      </g:HTMLPanel>
-    </g:center>
-
-    <g:north size="358">
+    </g:north>-->    
+    <g:center size="220">
       <g:HTMLPanel>
         <!-- <g:Grid ui:field="gameBoard" styleName="{style.grid}"></g:Grid> -->
-        
+        Current:<g:Image ui:field="whoseTurnImage"></g:Image>
+        <g:Button ui:field="restartBtn">Restart</g:Button>
         <g:Grid ui:field="gameBoard1" styleName="{style.grid1}"></g:Grid>  
         <g:Grid ui:field="gameBoard2" styleName="{style.grid2}"></g:Grid>     
         <g:Grid ui:field="gameBoard3" styleName="{style.grid3}"></g:Grid>   
@@ -204,8 +199,9 @@
         <g:Grid ui:field="gameBoard15" styleName="{style.grid15}"></g:Grid> 
         <g:Grid ui:field="gameBoard16" styleName="{style.grid16}"></g:Grid> 
         <g:Grid ui:field="gameBoard17" styleName="{style.grid17}"></g:Grid> 
-        <g:Label ui:field="messageLabel" styleName="{style.msg}"/>        
+        <g:Label ui:field="messageLabel" styleName="{style.msg}"/>
+        <g:HTML ui:field="statusHTML">Still on...</g:HTML>        
       </g:HTMLPanel>
-    </g:north>
+    </g:center>
   </g:DockLayoutPanel>
 </ui:UiBinder>
