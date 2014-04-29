@@ -144,9 +144,6 @@
       text-align: center;
       opacity: 0.9;
     }
-    .sidebar {
-      margin-left: -30px;
-    } 
   </ui:style>
 
   <ui:style field="css" type="org.chinesechecker.graphics.GameCss">
@@ -176,12 +173,13 @@
       <g:HorizontalPanel>
         <g:Image ui:field="gameLogo"/>
       </g:HorizontalPanel>
-    </g:north>-->    
-    <g:center size="220">
+    </g:north>-->
+
+    
+
+    <g:north size="250">
       <g:HTMLPanel>
-        <!-- <g:Grid ui:field="gameBoard" styleName="{style.grid}"></g:Grid> -->
-        Current:<g:Image ui:field="whoseTurnImage"></g:Image>
-        <g:Button ui:field="restartBtn">Restart</g:Button>
+        <!-- <g:Grid ui:field="gameBoard" styleName="{style.grid}"></g:Grid> -->        
         <g:Grid ui:field="gameBoard1" styleName="{style.grid1}"></g:Grid>  
         <g:Grid ui:field="gameBoard2" styleName="{style.grid2}"></g:Grid>     
         <g:Grid ui:field="gameBoard3" styleName="{style.grid3}"></g:Grid>   
@@ -200,8 +198,10 @@
         <g:Grid ui:field="gameBoard16" styleName="{style.grid16}"></g:Grid> 
         <g:Grid ui:field="gameBoard17" styleName="{style.grid17}"></g:Grid> 
         <g:Label ui:field="messageLabel" styleName="{style.msg}"/>
-        <g:HTML ui:field="statusHTML">Still on...</g:HTML>        
+        <g:Label ui:field="currentPlayer"/><g:Image ui:field="whoseTurnImage"></g:Image>
+        <g:Button ui:field="restartBtn"></g:Button><br></br>
+        <g:Label ui:field="statusHTML"></g:Label>     
       </g:HTMLPanel>
-    </g:center>
+    </g:north>
   </g:DockLayoutPanel>
 </ui:UiBinder>

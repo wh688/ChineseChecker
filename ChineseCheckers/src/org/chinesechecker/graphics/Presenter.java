@@ -15,6 +15,8 @@ import org.game_api.GameApi.Operation;
 import org.game_api.GameApi.SetTurn;
 import org.game_api.GameApi.UpdateUI;
 
+import com.google.gwt.core.shared.GWT;
+
 /**
  * The presenter that controls the Chinese checkers graphics.
  * We use the MVP pattern:
@@ -30,6 +32,7 @@ public class Presenter {
 	private final Container container;
 	public boolean isMyTurn = true;
 	public Chess[][] chessboard;
+	private static GameConstants constants = GWT.create(GameConstants.class);
 	
 	public interface View {
 		void setHighlight(int row, int col, boolean highlighted);
@@ -75,7 +78,7 @@ public class Presenter {
 			}
 			if (! currentState.chessBoard.getChess(to).getColor().equals(currentState.players[currentState.currentPlayIndex].getColor())) {
 		    	view.errorSound();
-				view.setMessage("Can not move the opponent's piece!");
+				view.setMessage(constants.OppError());
 				return;
 			}
 			selectPiece(to);
@@ -93,7 +96,7 @@ public class Presenter {
 		        updateInfo();
 			} catch (IllegalMove e) {
 		    	view.errorSound();
-	            view.setMessage(e.getMessage());
+	            view.setMessage(constants.MoveError());
 			}
 		}			
 	}	
@@ -163,7 +166,7 @@ public class Presenter {
 		if (currentState.players[currentState.currentPlayIndex].Winned() == true) {
 			updateEndGameInfo();
 		} else {
-			view.showStatus("Still on...");
+			view.showStatus(constants.stillOn());
 			view.setGameOver(false);
 		}
 	}
@@ -171,11 +174,15 @@ public class Presenter {
 	void updateEndGameInfo() {
 		String str = "";        
         if (currentState.players[currentState.currentPlayIndex].Winned() == true) {
-        	str += currentState.players[currentState.currentPlayIndex].getColor().toString();
-        	str += " wins!";
+        	if (currentState.players[currentState.currentPlayIndex].getColor().toString() == "B") {
+        		str += constants.blue();
+        	} else {
+        		str += constants.red();
+        	}
+        	str += constants.win();
         } 
         view.showStatus(str);
-        view.setButton("RESTART");
+        view.setButton(constants.restart());
         view.setGameOver(true);
 	}
 	

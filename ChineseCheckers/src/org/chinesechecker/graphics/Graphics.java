@@ -70,6 +70,7 @@ public class Graphics extends Composite implements Presenter.View {
 		String cellHover();
 	}
 	private static GraphicsUiBinder uiBinder = GWT.create(GraphicsUiBinder.class);
+	private static GameConstants constants = GWT.create(GameConstants.class);
 
 	@UiField
 	MyStyle style;
@@ -120,7 +121,9 @@ public class Graphics extends Composite implements Presenter.View {
 	@UiField
 	Label messageLabel;
 	@UiField
-	HTML statusHTML;
+	Label currentPlayer;
+	@UiField
+	Label statusHTML;
 	//@UiField
 	//Image gameLogo;
 	@UiField public static
@@ -129,8 +132,6 @@ public class Graphics extends Composite implements Presenter.View {
 	public CheckerResources checkerResources;
 	public Presenter presenter;
 	public AbsolutePanel innerBoard;	
-	public String innerBoardWidth = "340px";
-	public String innerBoardHeight = "340px";
 	
 	public Image[][] cells = new Image[ChessBoard.ROWS][ChessBoard.COLS];
 	public boolean isGameOver;
@@ -146,7 +147,6 @@ public class Graphics extends Composite implements Presenter.View {
 		presenter = new Presenter(this, null);
 		this.checkerResources = GWT.create(CheckerResources.class);
 		innerBoard = new AbsolutePanel();
-	  	innerBoard.setSize(innerBoardWidth, innerBoardHeight);		
 		initWidget(uiBinder.createAndBindUi(this));
 		//gameLogo.setResource(checkerResources.title());	    
 	    pieceCaptured.setSrc("sounds/pieceCaptured.mp3");
@@ -155,10 +155,14 @@ public class Graphics extends Composite implements Presenter.View {
 	    restartSound.setSrc("sounds/restart.mp3");
 	    isGameOver = false;
 		whoseTurn = R;
+		
+		restartBtn.setText(constants.restart());
+		currentPlayer.setText(constants.CurrentPlayer());
+		//messageLabel.setText(constants.stillOn());
 		/*
 		gameBoard.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard.setWidth("170px");
-		gameBoard.setHeight("170px");
+		gameBoard.setWidth("180px");
+		gameBoard.setHeight("180px");
 		gameBoard.setCellPadding(0);
 	    gameBoard.setCellSpacing(0);
 	    gameBoard.setBorderWidth(0);
@@ -252,7 +256,7 @@ public class Graphics extends Composite implements Presenter.View {
 		*/
 		
 		gameBoard1.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard1.setWidth("170px");
+		gameBoard1.setWidth("180px");
 		gameBoard1.setHeight("10px");
 		gameBoard1.setCellPadding(0);
 		gameBoard1.setCellSpacing(0);
@@ -313,7 +317,7 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard2.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard2.setWidth("170px");
+		gameBoard2.setWidth("180px");
 		gameBoard2.setHeight("10px");
 		gameBoard2.setCellPadding(0);
 		gameBoard2.setCellSpacing(0);
@@ -374,7 +378,7 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard3.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard3.setWidth("170px");
+		gameBoard3.setWidth("180px");
 		gameBoard3.setHeight("10px");
 		gameBoard3.setCellPadding(0);
 		gameBoard3.setCellSpacing(0);
@@ -435,7 +439,7 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard4.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard4.setWidth("170px");
+		gameBoard4.setWidth("180px");
 		gameBoard4.setHeight("10px");
 		gameBoard4.setCellPadding(0);
 		gameBoard4.setCellSpacing(0);
@@ -496,7 +500,7 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard5.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard5.setWidth("170px");
+		gameBoard5.setWidth("180px");
 		gameBoard5.setHeight("10px");
 		gameBoard5.setCellPadding(0);
 		gameBoard5.setCellSpacing(0);
@@ -552,7 +556,7 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard6.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard6.setWidth("170px");
+		gameBoard6.setWidth("180px");
 		gameBoard6.setHeight("10px");
 		gameBoard6.setCellPadding(0);
 		gameBoard6.setCellSpacing(0);
@@ -608,7 +612,7 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard7.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard7.setWidth("170px");
+		gameBoard7.setWidth("180px");
 		gameBoard7.setHeight("10px");
 		gameBoard7.setCellPadding(0);
 		gameBoard7.setCellSpacing(0);
@@ -664,7 +668,7 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard8.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard8.setWidth("170px");
+		gameBoard8.setWidth("180px");
 		gameBoard8.setHeight("10px");
 		gameBoard8.setCellPadding(0);
 		gameBoard8.setCellSpacing(0);
@@ -720,7 +724,7 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard9.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard9.setWidth("170px");
+		gameBoard9.setWidth("180px");
 		gameBoard9.setHeight("10px");
 		gameBoard9.setCellPadding(0);
 		gameBoard9.setCellSpacing(0);
@@ -776,7 +780,7 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard10.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard10.setWidth("170px");
+		gameBoard10.setWidth("180px");
 		gameBoard10.setHeight("10px");
 		gameBoard10.setCellPadding(0);
 		gameBoard10.setCellSpacing(0);
@@ -832,7 +836,7 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard11.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard11.setWidth("170px");
+		gameBoard11.setWidth("180px");
 		gameBoard11.setHeight("10px");
 		gameBoard11.setCellPadding(0);
 		gameBoard11.setCellSpacing(0);
@@ -888,7 +892,7 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard12.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard12.setWidth("170px");
+		gameBoard12.setWidth("180px");
 		gameBoard12.setHeight("10px");
 		gameBoard12.setCellPadding(0);
 		gameBoard12.setCellSpacing(0);
@@ -944,7 +948,7 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard13.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard13.setWidth("170px");
+		gameBoard13.setWidth("180px");
 		gameBoard13.setHeight("10px");
 		gameBoard13.setCellPadding(0);
 		gameBoard13.setCellSpacing(0);
@@ -1000,7 +1004,7 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard14.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard14.setWidth("170px");
+		gameBoard14.setWidth("180px");
 		gameBoard14.setHeight("10px");
 		gameBoard14.setCellPadding(0);
 		gameBoard14.setCellSpacing(0);
@@ -1061,7 +1065,7 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard15.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard15.setWidth("170px");
+		gameBoard15.setWidth("180px");
 		gameBoard15.setHeight("10px");
 		gameBoard15.setCellPadding(0);
 		gameBoard15.setCellSpacing(0);
@@ -1122,7 +1126,7 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard16.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard16.setWidth("170px");
+		gameBoard16.setWidth("180px");
 		gameBoard16.setHeight("10px");
 		gameBoard16.setCellPadding(0);
 		gameBoard16.setCellSpacing(0);
@@ -1183,7 +1187,7 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard17.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard17.setWidth("170px");
+		gameBoard17.setWidth("180px");
 		gameBoard17.setHeight("10px");
 		gameBoard17.setCellPadding(0);
 		gameBoard17.setCellSpacing(0);
@@ -1320,7 +1324,7 @@ public class Graphics extends Composite implements Presenter.View {
 	
 	@Override
 	public void showStatus(String html) {
-		statusHTML.setHTML(html);
+		statusHTML.setText(html);
 	}
 	
 	@Override
