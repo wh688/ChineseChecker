@@ -33,7 +33,7 @@ public class Presenter {
 	public boolean isMyTurn = true;
 	public Chess[][] chessboard;
 	private static GameConstants constants = GWT.create(GameConstants.class);
-	
+	int AIChessIndex = 19;
 	public interface View {
 		void setHighlight(int row, int col, boolean highlighted);
 		void setCell(int row, int col, Chess chess);
@@ -86,14 +86,26 @@ public class Presenter {
 			unselectPiece(from);
 			try {
 				currentState.players[currentState.currentPlayIndex].SelectChess(from);
-				view.animateSetStone(from);
-				
+				view.animateSetStone(from);				
 				currentState.players[currentState.currentPlayIndex].GoChess(to);
-				view.animateSetStone(to);
+				view.animateSetStone(to);				
 				if (currentState.players[currentState.currentPlayIndex].Winned() == false) {
 					currentState.getNextPlay();
+				}				
+				currentState.players[currentState.currentPlayIndex].SelectChess(new Position(currentState.chessBoard.getPosition(currentState.chessBoard.getChess(AIChessIndex))));
+				view.animateSetStone(from);
+				currentState.players[currentState.currentPlayIndex].GoChess(((ManLogic) currentState.getCurentPlay()).getCanGo()[0]);
+				view.animateSetStone(to);	
+				if (AIChessIndex > 10) {
+					AIChessIndex --;
+				} else {
+					AIChessIndex = 19;
 				}
-		        updateInfo();
+				
+				if (currentState.players[currentState.currentPlayIndex].Winned() == false) {
+					currentState.getNextPlay();
+				}				
+				updateInfo();
 			} catch (IllegalMove e) {
 		    	view.errorSound();
 	            view.setMessage(constants.MoveError());
