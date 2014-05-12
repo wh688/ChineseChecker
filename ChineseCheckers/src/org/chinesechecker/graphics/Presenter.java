@@ -91,7 +91,7 @@ public class Presenter {
 				view.animateSetStone(to);				
 				if (currentState.players[currentState.currentPlayIndex].Winned() == false) {
 					currentState.getNextPlay();
-				}				
+				}								
 				currentState.players[currentState.currentPlayIndex].SelectChess(new Position(currentState.chessBoard.getPosition(currentState.chessBoard.getChess(AIChessIndex))));
 				view.animateSetStone(from);
 				currentState.players[currentState.currentPlayIndex].GoChess(((ManLogic) currentState.getCurentPlay()).getCanGo()[0]);
@@ -158,7 +158,7 @@ public class Presenter {
 		return currentState.chessBoard.getChess(new Position(row, col)) == null;
 	}
 	
-	public void setMyTurn(boolean isMyTurn) {
+	public void setTurn(boolean isMyTurn) {
 		this.isMyTurn = isMyTurn;
 	}
 	

@@ -60,7 +60,7 @@ import com.google.gwt.uibinder.client.UiHandler;
 
 public class Graphics extends Composite implements Presenter.View {
 	
-	static final int STONE_SIZE = 10;
+	static final int STONE_SIZE = 20;
 	static final int ANIMATION_DURATION = 2000;
 	
 	interface GraphicsUiBinder extends UiBinder<Widget, Graphics> {
@@ -114,16 +114,16 @@ public class Graphics extends Composite implements Presenter.View {
 	@UiField
 	Grid gameBoard17;
 	
-	@UiField
-	Button restartBtn;
+	//@UiField
+	//Button restartBtn;
 	@UiField
 	Image whoseTurnImage;
-	@UiField
-	Label messageLabel;
-	@UiField
-	Label currentPlayer;
-	@UiField
-	Label statusHTML;
+	//@UiField
+	//Label messageLabel;
+	//@UiField
+	//Label currentPlayer;
+	//@UiField
+	//Label statusHTML;
 	//@UiField
 	//Image gameLogo;
 	@UiField public static
@@ -156,13 +156,13 @@ public class Graphics extends Composite implements Presenter.View {
 	    isGameOver = false;
 		whoseTurn = R;
 		
-		restartBtn.setText(constants.restart());
-		currentPlayer.setText(constants.CurrentPlayer());
+		//restartBtn.setText(constants.restart());
+		//currentPlayer.setText(constants.CurrentPlayer());
 		//messageLabel.setText(constants.stillOn());
 		/*
 		gameBoard.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard.setWidth("180px");
-		gameBoard.setHeight("180px");
+		gameBoard.setWidth("360px");
+		gameBoard.setHeight("360px");
 		gameBoard.setCellPadding(0);
 	    gameBoard.setCellSpacing(0);
 	    gameBoard.setBorderWidth(0);
@@ -256,8 +256,8 @@ public class Graphics extends Composite implements Presenter.View {
 		*/
 		
 		gameBoard1.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard1.setWidth("180px");
-		gameBoard1.setHeight("10px");
+		gameBoard1.setWidth("360px");
+		gameBoard1.setHeight("20px");
 		gameBoard1.setCellPadding(0);
 		gameBoard1.setCellSpacing(0);
 		gameBoard1.setBorderWidth(0);
@@ -284,20 +284,20 @@ public class Graphics extends Composite implements Presenter.View {
 				cell.addDragEnterHandler(new DragEnterHandler() {
 					@Override
 					public void onDragEnter(DragEnterEvent event) {
-						cell.getElement().addClassName(style.cellHover());
+						//cell.getElement().addClassName(style.cellHover());
 					}
 				});
 				cell.addDragLeaveHandler(new DragLeaveHandler() {
 					@Override
 					public void onDragLeave(DragLeaveEvent event) {
-						cell.getElement().removeClassName(style.cellHover());
+						//cell.getElement().removeClassName(style.cellHover());
 					}
 				});
 				cell.addDropHandler(new DropHandler() {
                     @Override
                     public void onDrop(DropEvent event) {
                     	presenter.selectCell(row, col);
-                    	cell.getElement().removeClassName(style.cellHover());
+                    	//cell.getElement().removeClassName(style.cellHover());
                     }
 				});
 				cell.addClickHandler(new ClickHandler() {
@@ -317,8 +317,8 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard2.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard2.setWidth("180px");
-		gameBoard2.setHeight("10px");
+		gameBoard2.setWidth("360px");
+		gameBoard2.setHeight("20px");
 		gameBoard2.setCellPadding(0);
 		gameBoard2.setCellSpacing(0);
 		gameBoard2.setBorderWidth(0);
@@ -345,20 +345,20 @@ public class Graphics extends Composite implements Presenter.View {
 				cell.addDragEnterHandler(new DragEnterHandler() {
 					@Override
 					public void onDragEnter(DragEnterEvent event) {
-						cell.getElement().addClassName(style.cellHover());
+						//cell.getElement().addClassName(style.cellHover());
 					}
 				});
 				cell.addDragLeaveHandler(new DragLeaveHandler() {
 					@Override
 					public void onDragLeave(DragLeaveEvent event) {
-						cell.getElement().removeClassName(style.cellHover());
+						//cell.getElement().removeClassName(style.cellHover());
 					}
 				});
 				cell.addDropHandler(new DropHandler() {
                     @Override
                     public void onDrop(DropEvent event) {
                     	presenter.selectCell(row, col);
-                    	cell.getElement().removeClassName(style.cellHover());
+                    	//cell.getElement().removeClassName(style.cellHover());
                     }
 				});
 				cell.addClickHandler(new ClickHandler() {
@@ -378,8 +378,8 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard3.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard3.setWidth("180px");
-		gameBoard3.setHeight("10px");
+		gameBoard3.setWidth("360px");
+		gameBoard3.setHeight("20px");
 		gameBoard3.setCellPadding(0);
 		gameBoard3.setCellSpacing(0);
 		gameBoard3.setBorderWidth(0);
@@ -406,20 +406,20 @@ public class Graphics extends Composite implements Presenter.View {
 				cell.addDragEnterHandler(new DragEnterHandler() {
 					@Override
 					public void onDragEnter(DragEnterEvent event) {
-						cell.getElement().addClassName(style.cellHover());
+						//cell.getElement().addClassName(style.cellHover());
 					}
 				});
 				cell.addDragLeaveHandler(new DragLeaveHandler() {
 					@Override
 					public void onDragLeave(DragLeaveEvent event) {
-						cell.getElement().removeClassName(style.cellHover());
+						//cell.getElement().removeClassName(style.cellHover());
 					}
 				});
 				cell.addDropHandler(new DropHandler() {
                     @Override
                     public void onDrop(DropEvent event) {
                     	presenter.selectCell(row, col);
-                    	cell.getElement().removeClassName(style.cellHover());
+                    	//cell.getElement().removeClassName(style.cellHover());
                     }
 				});
 				cell.addClickHandler(new ClickHandler() {
@@ -439,8 +439,8 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard4.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard4.setWidth("180px");
-		gameBoard4.setHeight("10px");
+		gameBoard4.setWidth("360px");
+		gameBoard4.setHeight("20px");
 		gameBoard4.setCellPadding(0);
 		gameBoard4.setCellSpacing(0);
 		gameBoard4.setBorderWidth(0);
@@ -467,20 +467,20 @@ public class Graphics extends Composite implements Presenter.View {
 				cell.addDragEnterHandler(new DragEnterHandler() {
 					@Override
 					public void onDragEnter(DragEnterEvent event) {
-						cell.getElement().addClassName(style.cellHover());
+						//cell.getElement().addClassName(style.cellHover());
 					}
 				});
 				cell.addDragLeaveHandler(new DragLeaveHandler() {
 					@Override
 					public void onDragLeave(DragLeaveEvent event) {
-						cell.getElement().removeClassName(style.cellHover());
+						//cell.getElement().removeClassName(style.cellHover());
 					}
 				});
 				cell.addDropHandler(new DropHandler() {
                     @Override
                     public void onDrop(DropEvent event) {
                     	presenter.selectCell(row, col);
-                    	cell.getElement().removeClassName(style.cellHover());
+                    	//cell.getElement().removeClassName(style.cellHover());
                     }
 				});
 				cell.addClickHandler(new ClickHandler() {
@@ -500,8 +500,8 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard5.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard5.setWidth("180px");
-		gameBoard5.setHeight("10px");
+		gameBoard5.setWidth("360px");
+		gameBoard5.setHeight("20px");
 		gameBoard5.setCellPadding(0);
 		gameBoard5.setCellSpacing(0);
 		gameBoard5.setBorderWidth(0);
@@ -528,20 +528,20 @@ public class Graphics extends Composite implements Presenter.View {
 				cell.addDragEnterHandler(new DragEnterHandler() {
 					@Override
 					public void onDragEnter(DragEnterEvent event) {
-						cell.getElement().addClassName(style.cellHover());
+						//cell.getElement().addClassName(style.cellHover());
 					}
 				});
 				cell.addDragLeaveHandler(new DragLeaveHandler() {
 					@Override
 					public void onDragLeave(DragLeaveEvent event) {
-						cell.getElement().removeClassName(style.cellHover());
+						//cell.getElement().removeClassName(style.cellHover());
 					}
 				});
 				cell.addDropHandler(new DropHandler() {
                     @Override
                     public void onDrop(DropEvent event) {
                     	presenter.selectCell(row, col);
-                    	cell.getElement().removeClassName(style.cellHover());
+                    	//cell.getElement().removeClassName(style.cellHover());
                     }
 				});
 				cell.addClickHandler(new ClickHandler() {
@@ -556,8 +556,8 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard6.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard6.setWidth("180px");
-		gameBoard6.setHeight("10px");
+		gameBoard6.setWidth("360px");
+		gameBoard6.setHeight("20px");
 		gameBoard6.setCellPadding(0);
 		gameBoard6.setCellSpacing(0);
 		gameBoard6.setBorderWidth(0);
@@ -584,20 +584,20 @@ public class Graphics extends Composite implements Presenter.View {
 				cell.addDragEnterHandler(new DragEnterHandler() {
 					@Override
 					public void onDragEnter(DragEnterEvent event) {
-						cell.getElement().addClassName(style.cellHover());
+						//cell.getElement().addClassName(style.cellHover());
 					}
 				});
 				cell.addDragLeaveHandler(new DragLeaveHandler() {
 					@Override
 					public void onDragLeave(DragLeaveEvent event) {
-						cell.getElement().removeClassName(style.cellHover());
+						//cell.getElement().removeClassName(style.cellHover());
 					}
 				});
 				cell.addDropHandler(new DropHandler() {
                     @Override
                     public void onDrop(DropEvent event) {
                     	presenter.selectCell(row, col);
-                    	cell.getElement().removeClassName(style.cellHover());
+                    	//cell.getElement().removeClassName(style.cellHover());
                     }
 				});
 				cell.addClickHandler(new ClickHandler() {
@@ -612,8 +612,8 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard7.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard7.setWidth("180px");
-		gameBoard7.setHeight("10px");
+		gameBoard7.setWidth("360px");
+		gameBoard7.setHeight("20px");
 		gameBoard7.setCellPadding(0);
 		gameBoard7.setCellSpacing(0);
 		gameBoard7.setBorderWidth(0);
@@ -640,20 +640,20 @@ public class Graphics extends Composite implements Presenter.View {
 				cell.addDragEnterHandler(new DragEnterHandler() {
 					@Override
 					public void onDragEnter(DragEnterEvent event) {
-						cell.getElement().addClassName(style.cellHover());
+						//cell.getElement().addClassName(style.cellHover());
 					}
 				});
 				cell.addDragLeaveHandler(new DragLeaveHandler() {
 					@Override
 					public void onDragLeave(DragLeaveEvent event) {
-						cell.getElement().removeClassName(style.cellHover());
+						//cell.getElement().removeClassName(style.cellHover());
 					}
 				});
 				cell.addDropHandler(new DropHandler() {
                     @Override
                     public void onDrop(DropEvent event) {
                     	presenter.selectCell(row, col);
-                    	cell.getElement().removeClassName(style.cellHover());
+                    	//cell.getElement().removeClassName(style.cellHover());
                     }
 				});
 				cell.addClickHandler(new ClickHandler() {
@@ -668,8 +668,8 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard8.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard8.setWidth("180px");
-		gameBoard8.setHeight("10px");
+		gameBoard8.setWidth("360px");
+		gameBoard8.setHeight("20px");
 		gameBoard8.setCellPadding(0);
 		gameBoard8.setCellSpacing(0);
 		gameBoard8.setBorderWidth(0);
@@ -696,20 +696,20 @@ public class Graphics extends Composite implements Presenter.View {
 				cell.addDragEnterHandler(new DragEnterHandler() {
 					@Override
 					public void onDragEnter(DragEnterEvent event) {
-						cell.getElement().addClassName(style.cellHover());
+						//cell.getElement().addClassName(style.cellHover());
 					}
 				});
 				cell.addDragLeaveHandler(new DragLeaveHandler() {
 					@Override
 					public void onDragLeave(DragLeaveEvent event) {
-						cell.getElement().removeClassName(style.cellHover());
+						//cell.getElement().removeClassName(style.cellHover());
 					}
 				});
 				cell.addDropHandler(new DropHandler() {
                     @Override
                     public void onDrop(DropEvent event) {
                     	presenter.selectCell(row, col);
-                    	cell.getElement().removeClassName(style.cellHover());
+                    	//cell.getElement().removeClassName(style.cellHover());
                     }
 				});
 				cell.addClickHandler(new ClickHandler() {
@@ -724,8 +724,8 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard9.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard9.setWidth("180px");
-		gameBoard9.setHeight("10px");
+		gameBoard9.setWidth("360px");
+		gameBoard9.setHeight("20px");
 		gameBoard9.setCellPadding(0);
 		gameBoard9.setCellSpacing(0);
 		gameBoard9.setBorderWidth(0);
@@ -752,20 +752,20 @@ public class Graphics extends Composite implements Presenter.View {
 				cell.addDragEnterHandler(new DragEnterHandler() {
 					@Override
 					public void onDragEnter(DragEnterEvent event) {
-						cell.getElement().addClassName(style.cellHover());
+						//cell.getElement().addClassName(style.cellHover());
 					}
 				});
 				cell.addDragLeaveHandler(new DragLeaveHandler() {
 					@Override
 					public void onDragLeave(DragLeaveEvent event) {
-						cell.getElement().removeClassName(style.cellHover());
+						//cell.getElement().removeClassName(style.cellHover());
 					}
 				});
 				cell.addDropHandler(new DropHandler() {
                     @Override
                     public void onDrop(DropEvent event) {
                     	presenter.selectCell(row, col);
-                    	cell.getElement().removeClassName(style.cellHover());
+                    	//cell.getElement().removeClassName(style.cellHover());
                     }
 				});
 				cell.addClickHandler(new ClickHandler() {
@@ -780,8 +780,8 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard10.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard10.setWidth("180px");
-		gameBoard10.setHeight("10px");
+		gameBoard10.setWidth("360px");
+		gameBoard10.setHeight("20px");
 		gameBoard10.setCellPadding(0);
 		gameBoard10.setCellSpacing(0);
 		gameBoard10.setBorderWidth(0);
@@ -808,20 +808,20 @@ public class Graphics extends Composite implements Presenter.View {
 				cell.addDragEnterHandler(new DragEnterHandler() {
 					@Override
 					public void onDragEnter(DragEnterEvent event) {
-						cell.getElement().addClassName(style.cellHover());
+						//cell.getElement().addClassName(style.cellHover());
 					}
 				});
 				cell.addDragLeaveHandler(new DragLeaveHandler() {
 					@Override
 					public void onDragLeave(DragLeaveEvent event) {
-						cell.getElement().removeClassName(style.cellHover());
+						//cell.getElement().removeClassName(style.cellHover());
 					}
 				});
 				cell.addDropHandler(new DropHandler() {
                     @Override
                     public void onDrop(DropEvent event) {
                     	presenter.selectCell(row, col);
-                    	cell.getElement().removeClassName(style.cellHover());
+                    	//cell.getElement().removeClassName(style.cellHover());
                     }
 				});
 				cell.addClickHandler(new ClickHandler() {
@@ -836,8 +836,8 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard11.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard11.setWidth("180px");
-		gameBoard11.setHeight("10px");
+		gameBoard11.setWidth("360px");
+		gameBoard11.setHeight("20px");
 		gameBoard11.setCellPadding(0);
 		gameBoard11.setCellSpacing(0);
 		gameBoard11.setBorderWidth(0);
@@ -864,20 +864,20 @@ public class Graphics extends Composite implements Presenter.View {
 				cell.addDragEnterHandler(new DragEnterHandler() {
 					@Override
 					public void onDragEnter(DragEnterEvent event) {
-						cell.getElement().addClassName(style.cellHover());
+						//cell.getElement().addClassName(style.cellHover());
 					}
 				});
 				cell.addDragLeaveHandler(new DragLeaveHandler() {
 					@Override
 					public void onDragLeave(DragLeaveEvent event) {
-						cell.getElement().removeClassName(style.cellHover());
+						//cell.getElement().removeClassName(style.cellHover());
 					}
 				});
 				cell.addDropHandler(new DropHandler() {
                     @Override
                     public void onDrop(DropEvent event) {
                     	presenter.selectCell(row, col);
-                    	cell.getElement().removeClassName(style.cellHover());
+                    	//cell.getElement().removeClassName(style.cellHover());
                     }
 				});
 				cell.addClickHandler(new ClickHandler() {
@@ -892,8 +892,8 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard12.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard12.setWidth("180px");
-		gameBoard12.setHeight("10px");
+		gameBoard12.setWidth("360px");
+		gameBoard12.setHeight("20px");
 		gameBoard12.setCellPadding(0);
 		gameBoard12.setCellSpacing(0);
 		gameBoard12.setBorderWidth(0);
@@ -920,20 +920,20 @@ public class Graphics extends Composite implements Presenter.View {
 				cell.addDragEnterHandler(new DragEnterHandler() {
 					@Override
 					public void onDragEnter(DragEnterEvent event) {
-						cell.getElement().addClassName(style.cellHover());
+						//cell.getElement().addClassName(style.cellHover());
 					}
 				});
 				cell.addDragLeaveHandler(new DragLeaveHandler() {
 					@Override
 					public void onDragLeave(DragLeaveEvent event) {
-						cell.getElement().removeClassName(style.cellHover());
+						//cell.getElement().removeClassName(style.cellHover());
 					}
 				});
 				cell.addDropHandler(new DropHandler() {
                     @Override
                     public void onDrop(DropEvent event) {
                     	presenter.selectCell(row, col);
-                    	cell.getElement().removeClassName(style.cellHover());
+                    	//cell.getElement().removeClassName(style.cellHover());
                     }
 				});
 				cell.addClickHandler(new ClickHandler() {
@@ -948,8 +948,8 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard13.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard13.setWidth("180px");
-		gameBoard13.setHeight("10px");
+		gameBoard13.setWidth("360px");
+		gameBoard13.setHeight("20px");
 		gameBoard13.setCellPadding(0);
 		gameBoard13.setCellSpacing(0);
 		gameBoard13.setBorderWidth(0);
@@ -976,20 +976,20 @@ public class Graphics extends Composite implements Presenter.View {
 				cell.addDragEnterHandler(new DragEnterHandler() {
 					@Override
 					public void onDragEnter(DragEnterEvent event) {
-						cell.getElement().addClassName(style.cellHover());
+						//cell.getElement().addClassName(style.cellHover());
 					}
 				});
 				cell.addDragLeaveHandler(new DragLeaveHandler() {
 					@Override
 					public void onDragLeave(DragLeaveEvent event) {
-						cell.getElement().removeClassName(style.cellHover());
+						//cell.getElement().removeClassName(style.cellHover());
 					}
 				});
 				cell.addDropHandler(new DropHandler() {
                     @Override
                     public void onDrop(DropEvent event) {
                     	presenter.selectCell(row, col);
-                    	cell.getElement().removeClassName(style.cellHover());
+                    	//cell.getElement().removeClassName(style.cellHover());
                     }
 				});
 				cell.addClickHandler(new ClickHandler() {
@@ -1004,8 +1004,8 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard14.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard14.setWidth("180px");
-		gameBoard14.setHeight("10px");
+		gameBoard14.setWidth("360px");
+		gameBoard14.setHeight("20px");
 		gameBoard14.setCellPadding(0);
 		gameBoard14.setCellSpacing(0);
 		gameBoard14.setBorderWidth(0);
@@ -1032,20 +1032,20 @@ public class Graphics extends Composite implements Presenter.View {
 				cell.addDragEnterHandler(new DragEnterHandler() {
 					@Override
 					public void onDragEnter(DragEnterEvent event) {
-						cell.getElement().addClassName(style.cellHover());
+						//cell.getElement().addClassName(style.cellHover());
 					}
 				});
 				cell.addDragLeaveHandler(new DragLeaveHandler() {
 					@Override
 					public void onDragLeave(DragLeaveEvent event) {
-						cell.getElement().removeClassName(style.cellHover());
+						//cell.getElement().removeClassName(style.cellHover());
 					}
 				});
 				cell.addDropHandler(new DropHandler() {
                     @Override
                     public void onDrop(DropEvent event) {
                     	presenter.selectCell(row, col);
-                    	cell.getElement().removeClassName(style.cellHover());
+                    	//cell.getElement().removeClassName(style.cellHover());
                     }
 				});
 				cell.addClickHandler(new ClickHandler() {
@@ -1065,8 +1065,8 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard15.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard15.setWidth("180px");
-		gameBoard15.setHeight("10px");
+		gameBoard15.setWidth("360px");
+		gameBoard15.setHeight("20px");
 		gameBoard15.setCellPadding(0);
 		gameBoard15.setCellSpacing(0);
 		gameBoard15.setBorderWidth(0);
@@ -1093,20 +1093,20 @@ public class Graphics extends Composite implements Presenter.View {
 				cell.addDragEnterHandler(new DragEnterHandler() {
 					@Override
 					public void onDragEnter(DragEnterEvent event) {
-						cell.getElement().addClassName(style.cellHover());
+						//cell.getElement().addClassName(style.cellHover());
 					}
 				});
 				cell.addDragLeaveHandler(new DragLeaveHandler() {
 					@Override
 					public void onDragLeave(DragLeaveEvent event) {
-						cell.getElement().removeClassName(style.cellHover());
+						//cell.getElement().removeClassName(style.cellHover());
 					}
 				});
 				cell.addDropHandler(new DropHandler() {
                     @Override
                     public void onDrop(DropEvent event) {
                     	presenter.selectCell(row, col);
-                    	cell.getElement().removeClassName(style.cellHover());
+                    	//cell.getElement().removeClassName(style.cellHover());
                     }
 				});
 				cell.addClickHandler(new ClickHandler() {
@@ -1126,8 +1126,8 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard16.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard16.setWidth("180px");
-		gameBoard16.setHeight("10px");
+		gameBoard16.setWidth("360px");
+		gameBoard16.setHeight("20px");
 		gameBoard16.setCellPadding(0);
 		gameBoard16.setCellSpacing(0);
 		gameBoard16.setBorderWidth(0);
@@ -1154,20 +1154,20 @@ public class Graphics extends Composite implements Presenter.View {
 				cell.addDragEnterHandler(new DragEnterHandler() {
 					@Override
 					public void onDragEnter(DragEnterEvent event) {
-						cell.getElement().addClassName(style.cellHover());
+						//cell.getElement().addClassName(style.cellHover());
 					}
 				});
 				cell.addDragLeaveHandler(new DragLeaveHandler() {
 					@Override
 					public void onDragLeave(DragLeaveEvent event) {
-						cell.getElement().removeClassName(style.cellHover());
+						//cell.getElement().removeClassName(style.cellHover());
 					}
 				});
 				cell.addDropHandler(new DropHandler() {
                     @Override
                     public void onDrop(DropEvent event) {
                     	presenter.selectCell(row, col);
-                    	cell.getElement().removeClassName(style.cellHover());
+                    	//cell.getElement().removeClassName(style.cellHover());
                     }
 				});
 				cell.addClickHandler(new ClickHandler() {
@@ -1187,8 +1187,8 @@ public class Graphics extends Composite implements Presenter.View {
 		}
 		
 		gameBoard17.resize(ChessBoard.ROWS, ChessBoard.COLS);
-		gameBoard17.setWidth("180px");
-		gameBoard17.setHeight("10px");
+		gameBoard17.setWidth("360px");
+		gameBoard17.setHeight("20px");
 		gameBoard17.setCellPadding(0);
 		gameBoard17.setCellSpacing(0);
 		gameBoard17.setBorderWidth(0);
@@ -1215,20 +1215,20 @@ public class Graphics extends Composite implements Presenter.View {
 				cell.addDragEnterHandler(new DragEnterHandler() {
 					@Override
 					public void onDragEnter(DragEnterEvent event) {
-						cell.getElement().addClassName(style.cellHover());
+						//cell.getElement().addClassName(style.cellHover());
 					}
 				});
 				cell.addDragLeaveHandler(new DragLeaveHandler() {
 					@Override
 					public void onDragLeave(DragLeaveEvent event) {
-						cell.getElement().removeClassName(style.cellHover());
+						//cell.getElement().removeClassName(style.cellHover());
 					}
 				});
 				cell.addDropHandler(new DropHandler() {
                     @Override
                     public void onDrop(DropEvent event) {
                     	presenter.selectCell(row, col);
-                    	cell.getElement().removeClassName(style.cellHover());
+                    	//cell.getElement().removeClassName(style.cellHover());
                     }
 				});
 				cell.addClickHandler(new ClickHandler() {
@@ -1247,14 +1247,15 @@ public class Graphics extends Composite implements Presenter.View {
 			}						
 		}
 		
-		whoseTurnImage.setResource(checkerResources.redStone());
-		
+		//whoseTurnImage.setResource(checkerResources.redStone());
+		/*
 		restartBtn.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				presenter.restartGame();
 			}
 		});
+		*/
 	}
 	/*
 	@Override
@@ -1314,17 +1315,16 @@ public class Graphics extends Composite implements Presenter.View {
 		} else {
 			whoseTurnImage.setResource(checkerResources.blueStone());
 		}
-
 	}
 	
 	@Override
 	public void setMessage(String msg) {
-		messageLabel.setText(msg);
+		//messageLabel.setText(msg);
 	}
 	
 	@Override
 	public void showStatus(String html) {
-		statusHTML.setText(html);
+		//statusHTML.setText(html);
 	}
 	
 	@Override
@@ -1337,8 +1337,7 @@ public class Graphics extends Composite implements Presenter.View {
 	
 	@Override
 	public void setButton(String str) {
-		restartBtn.setText(str);
-
+		//restartBtn.setText(str);
 	}
 
 	@Override

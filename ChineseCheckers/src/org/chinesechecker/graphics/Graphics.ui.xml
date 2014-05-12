@@ -8,22 +8,22 @@
     } 
     
     .grid1 {
-      margin-left: 20px;
+      margin-left: 40px;
       border-collapse: collapse;
       line-height: 0px;
     } 
     .grid2 {
-      margin-left: 15px;
+      margin-left: 30px;
       border-collapse: collapse;
       line-height: 0px;
     }
     .grid3 {
-      margin-left: 10px;
+      margin-left: 20px;
       border-collapse: collapse;
       line-height: 0px;
     }     
     .grid4 {
-      margin-left: 5px;
+      margin-left: 10px;
       border-collapse: collapse;
       line-height: 0px;
     } 
@@ -32,62 +32,62 @@
       line-height: 0px;
     } 
     .grid6 {
-      margin-left: -5px;
+      margin-left: -10px;
       border-collapse: collapse;
       line-height: 0px;
     } 
     .grid7 {
-      margin-left: -10px;
+      margin-left: -20px;
       border-collapse: collapse;
       line-height: 0px;
     }
     .grid8 {
-      margin-left: -15px;
+      margin-left: -30px;
       border-collapse: collapse;
       line-height: 0px;
     }     
     .grid9 {
-      margin-left: -20px;
+      margin-left: -40px;
       border-collapse: collapse;
       line-height: 0px;
     } 
     .grid10 {
-      margin-left: -25px;
-      border-collapse: collapse;
-      line-height: 0px;
-    }
-    .grid11 {
-      margin-left: -30px;
-      border-collapse: collapse;
-      line-height: 0px;
-    }
-    .grid12 {
-      margin-left: -35px;
-      border-collapse: collapse;
-      line-height: 0px;
-    }
-    .grid13 {
-      margin-left: -40px;
-      border-collapse: collapse;
-      line-height: 0px;
-    }
-    .grid14 {
-      margin-left: -45px;
-      border-collapse: collapse;
-      line-height: 0px;
-    }
-    .grid15 {
       margin-left: -50px;
       border-collapse: collapse;
       line-height: 0px;
     }
+    .grid11 {
+      margin-left: -60px;
+      border-collapse: collapse;
+      line-height: 0px;
+    }
+    .grid12 {
+      margin-left: -70px;
+      border-collapse: collapse;
+      line-height: 0px;
+    }
+    .grid13 {
+      margin-left: -80px;
+      border-collapse: collapse;
+      line-height: 0px;
+    }
+    .grid14 {
+      margin-left: -90px;
+      border-collapse: collapse;
+      line-height: 0px;
+    }
+    .grid15 {
+      margin-left: -100px;
+      border-collapse: collapse;
+      line-height: 0px;
+    }
     .grid16 {
-      margin-left: -55px;
+      margin-left: -110px;
       border-collapse: collapse;
       line-height: 0px;
     }
     .grid17 {
-      margin-left: -60px;
+      margin-left: -120px;
       border-collapse: collapse;
       line-height: 0px;
     }
@@ -177,7 +177,7 @@
 
     
 
-    <g:north size="250">
+    <g:north size="360">
       <g:HTMLPanel>
         <!-- <g:Grid ui:field="gameBoard" styleName="{style.grid}"></g:Grid> -->        
         <g:Grid ui:field="gameBoard1" styleName="{style.grid1}"></g:Grid>  
@@ -196,11 +196,13 @@
         <g:Grid ui:field="gameBoard14" styleName="{style.grid14}"></g:Grid> 
         <g:Grid ui:field="gameBoard15" styleName="{style.grid15}"></g:Grid> 
         <g:Grid ui:field="gameBoard16" styleName="{style.grid16}"></g:Grid> 
-        <g:Grid ui:field="gameBoard17" styleName="{style.grid17}"></g:Grid> 
-        <g:Label ui:field="messageLabel" styleName="{style.msg}"/>
-        <g:Label ui:field="currentPlayer"/><g:Image ui:field="whoseTurnImage"></g:Image>
-        <g:Button ui:field="restartBtn"></g:Button><br></br>
-        <g:Label ui:field="statusHTML"></g:Label>     
+        <g:Grid ui:field="gameBoard17" styleName="{style.grid17}"></g:Grid>
+        <g:Image ui:field="whoseTurnImage"></g:Image>         
+        <!-- <g:Label ui:field="messageLabel" styleName="{style.msg}"/>
+          <g:Label ui:field="currentPlayer"/><g:Image ui:field="whoseTurnImage"></g:Image>
+	        <g:Label ui:field="currentPlayer"/>
+	        <g:Button ui:field="restartBtn"></g:Button><br></br>
+	        <g:Label ui:field="statusHTML"></g:Label> -->
       </g:HTMLPanel>
     </g:north>
   </g:DockLayoutPanel>
